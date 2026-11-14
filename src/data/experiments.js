@@ -1276,6 +1276,58 @@ void loop() {
 }`
         }
       ]
+    },
+    {
+      id: "miot-exp7",
+      title: "Exp 7: Raspberry Pi GPIO LED Control",
+      file: "led_raspberrypi.py",
+      category: "Raspberry Pi & Python",
+      description: "Controls and toggles GPIO output pins using Python RPi.GPIO on Raspberry Pi with clean interrupt handling.",
+      tags: ["RaspberryPi", "Python", "GPIO", "RPi.GPIO"],
+      codeFiles: [
+        {
+          filename: "led_raspberrypi.py",
+          language: "python",
+          code: `# Raspberry Pi Experimentation with MicroIoT
+# Command: python led.py
+
+import time
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    print("RPi.GPIO not installed on non-Raspberry Pi system")
+    GPIO = None
+
+LED_PIN = 18
+
+def setup():
+    if GPIO:
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(LED_PIN, GPIO.OUT)
+
+def loop():
+    while True:
+        if GPIO:
+            GPIO.output(LED_PIN, GPIO.HIGH)
+            print("LED ON")
+            time.sleep(1)
+            GPIO.output(LED_PIN, GPIO.LOW)
+            print("LED OFF")
+            time.sleep(1)
+        else:
+            print("Simulating LED Blink (1s interval)...")
+            time.sleep(1)
+
+if __name__ == '__main__':
+    setup()
+    try:
+        loop()
+    except KeyboardInterrupt:
+        if GPIO:
+            GPIO.cleanup()
+        print("\\nExiting cleanly")`
+        }
+      ]
     }
   ]
 };
