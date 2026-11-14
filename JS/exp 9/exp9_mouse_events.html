@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiment 9 - Mouse and Focus Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      transition: background-color 0.3s;
+    }
+
+    table {
+      width: 600px;
+      height: 300px;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 2px solid white;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Experiment 9: Mouse and Focus Events</h1>
+
+  <h2>1. Mouse Event</h2>
+  <p>Move the mouse over any square to change the page background color.</p>
+
+  <table>
+    <tr>
+      <td style="background-color: pink" onmouseover="bgChange(this.style.backgroundColor)" onmouseout="bgChange('white')"></td>
+      <td style="background-color: PaleGreen" onmouseover="bgChange(this.style.backgroundColor)" onmouseout="bgChange('white')"></td>
+      <td style="background-color: Blue" onmouseover="bgChange(this.style.backgroundColor)" onmouseout="bgChange('white')"></td>
+    </tr>
+    <tr>
+      <td style="background-color: yellow" onmouseover="bgChange(this.style.backgroundColor)" onmouseout="bgChange('white')"></td>
+      <td style="background-color: Green" onmouseover="bgChange(this.style.backgroundColor)" onmouseout="bgChange('white')"></td>
+      <td style="background-color: gray" onmouseover="bgChange(this.style.backgroundColor)" onmouseout="bgChange('white')"></td>
+    </tr>
+  </table>
+
+  <h2>2. Focus Event</h2>
+  <label for="studentName">Enter your name: </label>
+  <input id="studentName" type="text" onfocus="focusChange(this)" onblur="resetInput(this)">
+  <p>When the input field gets focus, its background color changes to pink.</p>
+
+  <script>
+    function bgChange(bg) {
+      document.body.style.backgroundColor = bg;
+    }
+
+    function focusChange(input) {
+      input.style.backgroundColor = "pink";
+    }
+
+    function resetInput(input) {
+      input.style.backgroundColor = "white";
+    }
+  </script>
+</body>
+</html>
