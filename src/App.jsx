@@ -281,8 +281,21 @@ export default function App() {
           flexShrink: 0
         }}
       >
-        <div style={{ fontWeight: 700, fontSize: '18px', color: '#0f172a' }}>
-          Lab Codes
+        <div
+          onClick={() => navigate('/js')}
+          title="Go to JS Experiments"
+          style={{
+            fontWeight: 700,
+            fontSize: '18px',
+            color: '#0f172a',
+            cursor: 'pointer',
+            userSelect: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          <span>Lab Codes</span>
         </div>
 
         {/* Top Right Router Links: /js | /vlsi | /miot */}
@@ -317,11 +330,11 @@ export default function App() {
 
       {/* Routed Pages */}
       <Routes>
-        <Route path="/" element={<Navigate to="/js" replace />} />
+        <Route path="/" element={<LabView category="JS" />} />
         <Route path="/js" element={<LabView category="JS" />} />
         <Route path="/vlsi" element={<LabView category="VLSI" />} />
         <Route path="/miot" element={<LabView category="MIOT" />} />
-        <Route path="*" element={<Navigate to="/js" replace />} />
+        <Route path="*" element={<LabView category="JS" />} />
       </Routes>
     </div>
   );
