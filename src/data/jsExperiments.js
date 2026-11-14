@@ -1,11 +1,11 @@
 export const jsExperiments = [
   {
     id: "js-exp1",
-    title: "Exp 1: Rectangle Area Calculation",
+    title: "Exp 1: Area of Triangle, Rectangle and Circle",
     file: "index.html",
     category: "Basic JavaScript & DOM",
-    description: "Calculates the area of a rectangle from user length and breadth prompt inputs and outputs the result into the document.",
-    tags: ["prompt", "document.write", "math"],
+    description: "Calculates the area of a triangle, rectangle, and circle from user prompt inputs and displays the results.",
+    tags: ["prompt", "document.write", "math", "triangle", "rectangle", "circle"],
     codeFiles: [
       {
         filename: "index.html",
@@ -17,10 +17,22 @@ export const jsExperiments = [
 </head>
 <body>
 <script>
-    let length = Number(prompt("Enter length:"));
-    let breadth = Number(prompt("Enter breadth:"));
+    // 1. Area of Triangle
+    let base = Number(prompt("Enter base of triangle:"));
+    let height = Number(prompt("Enter height of triangle:"));
+    let triangleArea = 0.5 * base * height;
+    document.write("Area of Triangle = " + triangleArea + "<br><br>");
+
+    // 2. Area of Rectangle
+    let length = Number(prompt("Enter length of rectangle:"));
+    let breadth = Number(prompt("Enter breadth of rectangle:"));
     let rectangleArea = length * breadth;
     document.write("Area of Rectangle = " + rectangleArea + "<br><br>");
+
+    // 3. Area of Circle
+    let radius = Number(prompt("Enter radius of circle:"));
+    let circleArea = Math.PI * radius * radius;
+    document.write("Area of Circle = " + circleArea + "<br><br>");
 </script>
 </body>
 </html>`
