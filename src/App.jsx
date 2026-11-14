@@ -69,11 +69,12 @@ export default function App() {
       </header>
 
       {/* Main Content Area */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: 0, minWidth: 0 }}>
         {/* Left Sidebar */}
         <aside
           style={{
             width: '280px',
+            flexShrink: 0,
             background: '#ffffff',
             borderRight: '1px solid #e2e8f0',
             overflowY: 'auto',
@@ -137,6 +138,8 @@ export default function App() {
         <main
           style={{
             flex: 1,
+            minHeight: 0,
+            minWidth: 0,
             overflowY: 'auto',
             padding: '24px',
             display: 'flex',
@@ -156,8 +159,8 @@ export default function App() {
                 </p>
               </div>
 
-              {/* All files rendered visible together (e.g. index.html AND script.js for exp 10) */}
-              {currentExp.codeFiles.map((file, fileIdx) => {
+              {/* All files rendered visible together */}
+              {currentExp.codeFiles.map((file) => {
                 const copyKey = `${currentExp.id}-${file.filename}`;
                 const isCopied = copiedKey === copyKey;
 
@@ -168,7 +171,7 @@ export default function App() {
                       background: '#ffffff',
                       border: '1px solid #e2e8f0',
                       borderRadius: '8px',
-                      overflow: 'hidden'
+                      flexShrink: 0
                     }}
                   >
                     {/* Header for this file */}
@@ -179,7 +182,9 @@ export default function App() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        background: '#fafafa'
+                        background: '#fafafa',
+                        borderTopLeftRadius: '7px',
+                        borderTopRightRadius: '7px'
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -220,7 +225,7 @@ export default function App() {
                     </div>
 
                     {/* Code Content */}
-                    <div style={{ padding: '16px 20px', background: '#ffffff', overflowX: 'auto' }}>
+                    <div style={{ padding: '16px 20px', background: '#ffffff', overflowX: 'auto', borderBottomLeftRadius: '7px', borderBottomRightRadius: '7px' }}>
                       <pre style={{ margin: 0, color: '#1e293b' }}>
                         <code>{file.code}</code>
                       </pre>
