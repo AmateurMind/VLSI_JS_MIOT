@@ -23,6 +23,8 @@ export default function App() {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
+  const isMultiColumn = currentExp?.codeFiles && currentExp.codeFiles.length > 1;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#f8fafc' }}>
       {/* Top Bar */}
@@ -144,7 +146,7 @@ export default function App() {
             padding: '24px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px'
+            gap: '16px'
           }}
         >
           {currentExp ? (
@@ -159,80 +161,102 @@ export default function App() {
                 </p>
               </div>
 
-              {/* All files rendered visible together */}
-              {currentExp.codeFiles.map((file) => {
-                const copyKey = `${currentExp.id}-${file.filename}`;
-                const isCopied = copiedKey === copyKey;
+              {/* Files Layout: 2 Columns for multi-file (like Exp 10), 1 Column for single file */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMultiColumn ? '1fr 1fr' : '1fr',
+                  gap: '16px',
+                  alignItems: 'start'
+                }}
+              >
+                {currentExp.codeFiles.map((file) => {
+                  const copyKey = `${currentExp.id}-${file.filename}`;
+                  const isCopied = copiedKey === copyKey;
 
-                return (
-                  <div
-                    key={file.filename}
-                    style={{
-                      background: '#ffffff',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '8px',
-                      flexShrink: 0
-                    }}
-                  >
-                    {/* Header for this file */}
+                  return (
                     <div
+                      key={file.filename}
                       style={{
-                        padding: '12px 18px',
-                        borderBottom: '1px solid #e2e8f0',
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '8px',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        background: '#fafafa',
-                        borderTopLeftRadius: '7px',
-                        borderTopRightRadius: '7px'
+                        flexDirection: 'column',
+                        overflow: 'hidden',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.03)'
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontWeight: 600, fontSize: '14px', color: '#0f172a' }}>
-                          {file.filename}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: '11px',
-                            background: '#e2e8f0',
-                            color: '#475569',
-                            padding: '2px 6px',
-                            borderRadius: '4px',
-                            textTransform: 'uppercase',
-                            fontWeight: 600
-                          }}
-                        >
-                          {file.language}
-                        </span>
-                      </div>
-
-                      <button
-                        onClick={() => handleCopy(file.code, copyKey)}
+                      {/* Top Header with Copy Button prominently at top right */}
+                      <div
                         style={{
-                          background: isCopied ? '#15803d' : '#0f172a',
-                          color: '#ffffff',
-                          border: 'none',
-                          padding: '6px 14px',
-                          borderRadius: '5px',
-                          fontSize: '12px',
-                          fontWeight: 500,
-                          cursor: 'pointer',
-                          transition: 'background 0.15s ease'
+                          padding: '12px 16px',
+                          borderBottom: '1px solid #e2e8f0',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          background: '#fafafa'
                         }}
                       >
-                        {isCopied ? '✓ Copied' : `Copy ${file.filename}`}
-                      </button>
-                    </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontWeight: 600, fontSize: '14px', color: '#0f172a' }}>
+                            {file.filename}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: '11px',
+                              background: '#e2e8f0',
+                              color: '#475569',
+                              padding: '2px 6px',
+                              borderRadius: '4px',
+                              textTransform: 'uppercase',
+                              fontWeight: 600
+                            }}
+                          >
+                            {file.language}
+                          </span>
+                        </div>
 
-                    {/* Code Content */}
-                    <div style={{ padding: '16px 20px', background: '#ffffff', overflowX: 'auto', borderBottomLeftRadius: '7px', borderBottomRightRadius: '7px' }}>
-                      <pre style={{ margin: 0, color: '#1e293b' }}>
-                        <code>{file.code}</code>
-                      </pre>
+                        {/* Top Copy Button */}
+                        <button
+                          onClick={() => handleCopy(file.code, copyKey)}
+                          style={{
+                            background: isCopied ? '#15803d' : '#0f172a',
+                            color: '#ffffff',
+                            border: 'none',
+                            padding: '6px 14px',
+                            borderRadius: '5px',
+                            fontSize: '12.5px',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            transition: 'background 0.15s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                          }}
+                        >
+                          {isCopied ? '✓ Copied' : `Copy ${file.filename}`}
+                        </button>
+                      </div>
+
+                      {/* Code Content */}
+                      <div
+                        style={{
+                          padding: '16px',
+                          background: '#ffffff',
+                          overflowX: 'auto',
+                          maxHeight: isMultiColumn ? '70vh' : 'none',
+                          overflowY: isMultiColumn ? 'auto' : 'visible'
+                        }}
+                      >
+                        <pre style={{ margin: 0, color: '#1e293b' }}>
+                          <code>{file.code}</code>
+                        </pre>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </>
           ) : (
             <div style={{ color: '#64748b', fontSize: '14px' }}>Select an experiment from the left sidebar.</div>
