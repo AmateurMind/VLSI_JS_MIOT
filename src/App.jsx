@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { EXPERIMENTS_DATA } from './data/experiments';
 
 function LabView({ category }) {
@@ -28,7 +28,7 @@ function LabView({ category }) {
       {/* Left Sidebar */}
       <aside
         style={{
-          width: '280px',
+          width: '290px',
           flexShrink: 0,
           background: '#ffffff',
           borderRight: '1px solid #e2e8f0',
@@ -46,7 +46,7 @@ function LabView({ category }) {
             padding: '6px 8px 10px'
           }}
         >
-          {category} {category === 'VLSI' ? '(TO BE ADDED)' : `(${experiments.length})`}
+          {category} Experiments ({experiments.length})
         </div>
 
         {experiments.map((exp) => {
@@ -81,11 +81,11 @@ function LabView({ category }) {
                   color: isSelected ? '#0f172a' : '#64748b',
                   fontSize: '12px',
                   fontWeight: 600,
-                  minWidth: category === 'VLSI' ? 'auto' : '50px',
+                  minWidth: '52px',
                   flexShrink: 0
                 }}
               >
-                {category === 'VLSI' ? '•' : (expLabel || '•')}
+                {expLabel || '•'}
               </span>
               <span
                 style={{
@@ -95,7 +95,7 @@ function LabView({ category }) {
                   fontStyle: exp.isSkipped ? 'italic' : 'normal'
                 }}
               >
-                {category === 'VLSI' ? 'TO BE ADDED' : expName}
+                {expName}
               </span>
             </button>
           );
@@ -112,22 +112,39 @@ function LabView({ category }) {
           padding: '24px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '16px'
+          gap: '18px'
         }}
       >
         {currentExp ? (
           <>
             {/* Experiment Title */}
             <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    background: '#e2e8f0',
+                    color: '#334155',
+                    padding: '2px 8px',
+                    borderRadius: '4px'
+                  }}
+                >
+                  {currentExp.category}
+                </span>
+                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                  {currentExp.file}
+                </span>
+              </div>
               <h1 style={{ fontSize: '18px', fontWeight: 600, color: '#0f172a', margin: 0 }}>
-                {category === 'VLSI' ? 'VLSI: TO BE ADDED' : currentExp.title}
+                {currentExp.title}
               </h1>
               <p style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>
-                {category === 'VLSI' ? 'VLSI codes and experiments will be added here.' : currentExp.description}
+                {currentExp.description}
               </p>
             </div>
 
-            {/* If Exp is skipped / not there (e.g. Exp 7 in JS, or TO BE ADDED in VLSI) */}
+            {/* If Exp is skipped / not there (e.g. Exp 7 in JS) */}
             {currentExp.isSkipped ? (
               <div
                 style={{
@@ -140,16 +157,14 @@ function LabView({ category }) {
                 }}
               >
                 <p style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', letterSpacing: '0.5px' }}>
-                  {category === 'VLSI' ? 'TO BE ADDED' : 'Experiment 7 is not there'}
+                  Experiment 7 is not there
                 </p>
                 <p style={{ fontSize: '14px', marginTop: '8px', color: '#64748b' }}>
-                  {category === 'VLSI'
-                    ? 'VLSI codes will be added here soon.'
-                    : 'Experiment 7 is not available in the project files. Select Exp 8 from the sidebar to continue.'}
+                  Experiment 7 is not available in the project files. Select Exp 8 from the sidebar to continue.
                 </p>
               </div>
             ) : (
-              /* Files Layout: 2 Columns for multi-file (Exp 10), 1 Column for single file */
+              /* Files Layout: 2 Columns for multi-file (Exp 10 in JS or VHDL Design+TB), 1 Column for single file */
               <div
                 style={{
                   display: 'grid',
@@ -244,6 +259,53 @@ function LabView({ category }) {
                     </div>
                   );
                 })}
+              </div>
+            )}
+
+            {/* Microwind & Waveforms Image Gallery (if experiment has images) */}
+            {currentExp.images && currentExp.images.length > 0 && (
+              <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0f172a' }}>
+                  Layout & Simulation Waveforms
+                </h3>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: currentExp.images.length === 1 ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '16px'
+                  }}
+                >
+                  {currentExp.images.map((img, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '8px',
+                        padding: '12px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8px'
+                      }}
+                    >
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                        {img.caption}
+                      </div>
+                      <div style={{ background: '#f8fafc', borderRadius: '6px', overflow: 'hidden', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'center' }}>
+                        <img
+                          src={img.src}
+                          alt={img.caption}
+                          style={{
+                            maxWidth: '100%',
+                            height: 'auto',
+                            display: 'block',
+                            borderRadius: '4px'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </>
