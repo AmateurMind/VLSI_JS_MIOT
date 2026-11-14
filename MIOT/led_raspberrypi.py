@@ -37,3 +37,4 @@ if __name__ == '__main__':
         if GPIO:
             GPIO.cleanup()
         print("\nExiting cleanly")
+

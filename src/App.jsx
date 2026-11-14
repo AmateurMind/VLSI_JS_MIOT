@@ -46,7 +46,7 @@ function LabView({ category }) {
             padding: '6px 8px 10px'
           }}
         >
-          {category} Experiments ({experiments.length})
+          {category} {category === 'VLSI' ? '(TO BE ADDED)' : `(${experiments.length})`}
         </div>
 
         {experiments.map((exp) => {
@@ -81,11 +81,11 @@ function LabView({ category }) {
                   color: isSelected ? '#0f172a' : '#64748b',
                   fontSize: '12px',
                   fontWeight: 600,
-                  minWidth: '50px',
+                  minWidth: category === 'VLSI' ? 'auto' : '50px',
                   flexShrink: 0
                 }}
               >
-                {expLabel || '•'}
+                {category === 'VLSI' ? '•' : (expLabel || '•')}
               </span>
               <span
                 style={{
@@ -95,7 +95,7 @@ function LabView({ category }) {
                   fontStyle: exp.isSkipped ? 'italic' : 'normal'
                 }}
               >
-                {expName}
+                {category === 'VLSI' ? 'TO BE ADDED' : expName}
               </span>
             </button>
           );
@@ -120,30 +120,32 @@ function LabView({ category }) {
             {/* Experiment Title */}
             <div>
               <h1 style={{ fontSize: '18px', fontWeight: 600, color: '#0f172a', margin: 0 }}>
-                {currentExp.title}
+                {category === 'VLSI' ? 'VLSI: TO BE ADDED' : currentExp.title}
               </h1>
               <p style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>
-                {currentExp.description}
+                {category === 'VLSI' ? 'VLSI codes and experiments will be added here.' : currentExp.description}
               </p>
             </div>
 
-            {/* If Exp is skipped / not there (e.g. Exp 7 in JS) */}
+            {/* If Exp is skipped / not there (e.g. Exp 7 in JS, or TO BE ADDED in VLSI) */}
             {currentExp.isSkipped ? (
               <div
                 style={{
                   background: '#ffffff',
                   border: '1px dashed #cbd5e1',
                   borderRadius: '8px',
-                  padding: '36px 24px',
+                  padding: '48px 24px',
                   textAlign: 'center',
                   color: '#64748b'
                 }}
               >
-                <p style={{ fontSize: '15px', fontWeight: 500, color: '#334155' }}>
-                  Experiment 7 is not there / not available in the project files.
+                <p style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', letterSpacing: '0.5px' }}>
+                  {category === 'VLSI' ? 'TO BE ADDED' : 'Experiment 7 is not there'}
                 </p>
-                <p style={{ fontSize: '13px', marginTop: '8px' }}>
-                  Select <strong>Exp 8 (Set Operations)</strong> from the sidebar to continue.
+                <p style={{ fontSize: '14px', marginTop: '8px', color: '#64748b' }}>
+                  {category === 'VLSI'
+                    ? 'VLSI codes will be added here soon.'
+                    : 'Experiment 7 is not available in the project files. Select Exp 8 from the sidebar to continue.'}
                 </p>
               </div>
             ) : (
