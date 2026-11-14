@@ -96,8 +96,12 @@ export default function App() {
             {category} List ({experiments.length})
           </div>
 
-          {experiments.map((exp, idx) => {
+          {experiments.map((exp) => {
             const isSelected = currentExp?.id === exp.id;
+            const match = exp.title.match(/^(Exp\s*\d+):\s*(.*)$/i);
+            const expLabel = match ? match[1] : '';
+            const expName = match ? match[2] : exp.title;
+
             return (
               <button
                 key={exp.id}
@@ -109,27 +113,36 @@ export default function App() {
                   borderRadius: '6px',
                   border: 'none',
                   background: isSelected ? '#f1f5f9' : 'transparent',
-                  color: isSelected ? '#0f172a' : '#475569',
+                  color: exp.isSkipped ? '#94a3b8' : (isSelected ? '#0f172a' : '#475569'),
                   fontWeight: isSelected ? 600 : 400,
                   fontSize: '13.5px',
                   cursor: 'pointer',
                   marginBottom: '2px',
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'baseline',
                   gap: '8px'
                 }}
               >
                 <span
                   style={{
-                    color: isSelected ? '#0f172a' : '#94a3b8',
+                    color: isSelected ? '#0f172a' : '#64748b',
                     fontSize: '12px',
-                    fontWeight: 600
+                    fontWeight: 600,
+                    minWidth: '44px',
+                    flexShrink: 0
                   }}
                 >
-                  {idx + 1}.
+                  {expLabel || '•'}
                 </span>
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {exp.title.replace(/^Exp \d+:\s*/, '')}
+                <span
+                  style={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    fontStyle: exp.isSkipped ? 'italic' : 'normal'
+                  }}
+                >
+                  {expName}
                 </span>
               </button>
             );
@@ -161,102 +174,123 @@ export default function App() {
                 </p>
               </div>
 
-              {/* Files Layout: 2 Columns for multi-file (like Exp 10), 1 Column for single file */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: isMultiColumn ? '1fr 1fr' : '1fr',
-                  gap: '16px',
-                  alignItems: 'start'
-                }}
-              >
-                {currentExp.codeFiles.map((file) => {
-                  const copyKey = `${currentExp.id}-${file.filename}`;
-                  const isCopied = copiedKey === copyKey;
+              {/* If Exp is skipped / not there (e.g. Exp 7) */}
+              {currentExp.isSkipped ? (
+                <div
+                  style={{
+                    background: '#ffffff',
+                    border: '1px dashed #cbd5e1',
+                    borderRadius: '8px',
+                    padding: '36px 24px',
+                    textAlign: 'center',
+                    color: '#64748b'
+                  }}
+                >
+                  <p style={{ fontSize: '15px', fontWeight: 500, color: '#334155' }}>
+                    Experiment 7 is not there / not available in the project files.
+                  </p>
+                  <p style={{ fontSize: '13px', marginTop: '8px' }}>
+                    Select <strong>Exp 8 (Set Operations)</strong> from the sidebar to continue.
+                  </p>
+                </div>
+              ) : (
+                /* Files Layout: 2 Columns for multi-file (Exp 10), 1 Column for single file */
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMultiColumn ? '1fr 1fr' : '1fr',
+                    gap: '16px',
+                    alignItems: 'start'
+                  }}
+                >
+                  {currentExp.codeFiles.map((file) => {
+                    const copyKey = `${currentExp.id}-${file.filename}`;
+                    const isCopied = copiedKey === copyKey;
 
-                  return (
-                    <div
-                      key={file.filename}
-                      style={{
-                        background: '#ffffff',
-                        border: '1px solid #e2e8f0',
-                        borderRadius: '8px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        overflow: 'hidden',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.03)'
-                      }}
-                    >
-                      {/* Top Header with Copy Button prominently at top right */}
+                    return (
                       <div
+                        key={file.filename}
                         style={{
-                          padding: '12px 16px',
-                          borderBottom: '1px solid #e2e8f0',
+                          background: '#ffffff',
+                          border: '1px solid #e2e8f0',
+                          borderRadius: '8px',
                           display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          background: '#fafafa'
+                          flexDirection: 'column',
+                          overflow: 'hidden',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.03)'
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontWeight: 600, fontSize: '14px', color: '#0f172a' }}>
-                            {file.filename}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: '11px',
-                              background: '#e2e8f0',
-                              color: '#475569',
-                              padding: '2px 6px',
-                              borderRadius: '4px',
-                              textTransform: 'uppercase',
-                              fontWeight: 600
-                            }}
-                          >
-                            {file.language}
-                          </span>
-                        </div>
-
-                        {/* Top Copy Button */}
-                        <button
-                          onClick={() => handleCopy(file.code, copyKey)}
+                        {/* Top Header with Copy Button prominently at top right */}
+                        <div
                           style={{
-                            background: isCopied ? '#15803d' : '#0f172a',
-                            color: '#ffffff',
-                            border: 'none',
-                            padding: '6px 14px',
-                            borderRadius: '5px',
-                            fontSize: '12.5px',
-                            fontWeight: 500,
-                            cursor: 'pointer',
-                            transition: 'background 0.15s ease',
+                            padding: '12px 16px',
+                            borderBottom: '1px solid #e2e8f0',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '4px'
+                            justifyContent: 'space-between',
+                            background: '#fafafa'
                           }}
                         >
-                          {isCopied ? '✓ Copied' : `Copy ${file.filename}`}
-                        </button>
-                      </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontWeight: 600, fontSize: '14px', color: '#0f172a' }}>
+                              {file.filename}
+                            </span>
+                            <span
+                              style={{
+                                fontSize: '11px',
+                                background: '#e2e8f0',
+                                color: '#475569',
+                                padding: '2px 6px',
+                                borderRadius: '4px',
+                                textTransform: 'uppercase',
+                                fontWeight: 600
+                              }}
+                            >
+                              {file.language}
+                            </span>
+                          </div>
 
-                      {/* Code Content */}
-                      <div
-                        style={{
-                          padding: '16px',
-                          background: '#ffffff',
-                          overflowX: 'auto',
-                          maxHeight: isMultiColumn ? '70vh' : 'none',
-                          overflowY: isMultiColumn ? 'auto' : 'visible'
-                        }}
-                      >
-                        <pre style={{ margin: 0, color: '#1e293b' }}>
-                          <code>{file.code}</code>
-                        </pre>
+                          {/* Top Copy Button */}
+                          <button
+                            onClick={() => handleCopy(file.code, copyKey)}
+                            style={{
+                              background: isCopied ? '#15803d' : '#0f172a',
+                              color: '#ffffff',
+                              border: 'none',
+                              padding: '6px 14px',
+                              borderRadius: '5px',
+                              fontSize: '12.5px',
+                              fontWeight: 500,
+                              cursor: 'pointer',
+                              transition: 'background 0.15s ease',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '4px'
+                            }}
+                          >
+                            {isCopied ? '✓ Copied' : `Copy ${file.filename}`}
+                          </button>
+                        </div>
+
+                        {/* Code Content */}
+                        <div
+                          style={{
+                            padding: '16px',
+                            background: '#ffffff',
+                            overflowX: 'auto',
+                            maxHeight: isMultiColumn ? '70vh' : 'none',
+                            overflowY: isMultiColumn ? 'auto' : 'visible'
+                          }}
+                        >
+                          <pre style={{ margin: 0, color: '#1e293b' }}>
+                            <code>{file.code}</code>
+                          </pre>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </>
           ) : (
             <div style={{ color: '#64748b', fontSize: '14px' }}>Select an experiment from the left sidebar.</div>

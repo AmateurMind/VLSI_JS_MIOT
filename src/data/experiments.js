@@ -224,10 +224,11 @@ function sample() {
     },
     {
       id: "js-exp6",
-      title: "Exp 6: Array Operations (Remove, Contains, Empty)",
+      expNum: "Exp 6",
+      title: "Exp 6: Operations on Array Data",
       file: "index6.html",
       category: "Data Structures - Array",
-      description: "Core utility operations on arrays: filter-based element removal, includes() search, and resetting array length to empty.",
+      description: "Core utility operations on array data: filter-based element removal, includes() search, and resetting array length to empty.",
       tags: ["arrays", "filter", "includes", "length"],
       codeFiles: [
         {
@@ -271,8 +272,20 @@ document.write("<br>After emptying: ", array);
       ]
     },
     {
+      id: "js-exp7",
+      expNum: "Exp 7",
+      title: "Exp 7: Not there",
+      file: "N/A",
+      category: "Omitted",
+      description: "Experiment 7 is not there / not available in project files.",
+      isSkipped: true,
+      tags: ["skipped"],
+      codeFiles: []
+    },
+    {
       id: "js-exp8",
-      title: "Exp 8: Set Operations (Union, Intersection, Difference)",
+      expNum: "Exp 8",
+      title: "Exp 8: Set Operations",
       file: "index8.html",
       category: "Data Structures - Set",
       description: "Mathematical set implementations using ES6 Set: Union, Intersection, Difference, and Symmetric Difference.",
