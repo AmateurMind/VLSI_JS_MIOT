@@ -5,8 +5,8 @@ export const vlsiExperiments = [
     title: "Exp 1: 8:1 Multiplexer",
     file: "mux8to1.vhd",
     category: "Xilinx Design Suite - Combinational",
-    description: "VHDL code and testbench simulation for 8:1 Multiplexer with 8 data inputs and 3 select lines.",
-    tags: ["VHDL", "8:1 MUX", "Xilinx", "Testbench"],
+    description: "VHDL code and testbench simulation for 8:1 Multiplexer with 8 data inputs and 3 select lines (includes Behavioral and Dataflow styles).",
+    tags: ["VHDL", "8:1 MUX", "Xilinx", "Testbench", "Dataflow"],
     codeFiles: [
       {
         filename: "mux8to1.vhd",
@@ -16,15 +16,15 @@ use IEEE.STD_LOGIC_1164.ALL;
  
 entity mux8to1 is 
     Port ( 
-        I : in  STD_LOGIC_VECTOR(7 downto 0); -- 8 Data Inputs 
-        S : in  STD_LOGIC_VECTOR(2 downto 0); -- 3 Select Lines 
-        Y : out STD_LOGIC                     -- Output 
+        I : in  STD_LOGIC_VECTOR (7 downto 0); 
+        S : in  STD_LOGIC_VECTOR (2 downto 0); 
+        Y : out STD_LOGIC 
     ); 
 end mux8to1; 
  
 architecture Behavioral of mux8to1 is 
 begin 
-    process (I, S) 
+    process(I, S) 
     begin 
         case S is 
             when "000" => Y <= I(0); 
@@ -41,159 +41,281 @@ begin
 end Behavioral;`
       },
       {
-        filename: "tb_mux8to1.vhd",
+        filename: "mux8to1_tb.vhd",
+        language: "vhdl",
+        code: `LIBRARY ieee; 
+USE ieee.std_logic_1164.ALL; 
+ 
+ENTITY mux8to1_tb IS 
+END mux8to1_tb; 
+ 
+ARCHITECTURE behavior OF mux8to1_tb IS 
+    -- Component Declaration for the Unit Under Test (UUT) 
+    COMPONENT mux8to1 
+    PORT( 
+        I : IN  std_logic_vector(7 downto 0); 
+        S : IN  std_logic_vector(2 downto 0); 
+        Y : OUT std_logic 
+    ); 
+    END COMPONENT; 
+ 
+    -- Inputs 
+    signal I : std_logic_vector(7 downto 0) := (others => '0'); 
+    signal S : std_logic_vector(2 downto 0) := (others => '0'); 
+    -- Outputs 
+    signal Y : std_logic; 
+ 
+BEGIN 
+    -- Instantiate the Unit Under Test (UUT) 
+    uut: mux8to1 PORT MAP ( 
+        I => I, 
+        S => S, 
+        Y => Y 
+    ); 
+ 
+    -- Stimulus process 
+    stim_proc: process 
+    begin 
+        I <= "10101010"; 
+        S <= "000"; wait for 10 ns; 
+        S <= "001"; wait for 10 ns; 
+        S <= "010"; wait for 10 ns; 
+        S <= "011"; wait for 10 ns; 
+        S <= "100"; wait for 10 ns; 
+        S <= "101"; wait for 10 ns; 
+        S <= "110"; wait for 10 ns; 
+        S <= "111"; wait for 10 ns; 
+        wait; 
+    end process; 
+END behavior;`
+      },
+      {
+        filename: "mux8to1_dataflow.vhd",
         language: "vhdl",
         code: `library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL; 
-use IEEE.NUMERIC_STD.ALL; 
  
-entity tb_mux8to1 is 
--- Testbench has no ports 
-end tb_mux8to1; 
+entity mux8to1 is 
+    Port ( 
+        I : in  STD_LOGIC_VECTOR(7 downto 0); 
+        S : in  STD_LOGIC_VECTOR(2 downto 0); 
+        Y : out STD_LOGIC 
+    ); 
+end mux8to1; 
  
-architecture Behavior of tb_mux8to1 is 
-    -- Component Declaration 
-    component mux8to1 
-        Port ( 
-            I : in  STD_LOGIC_VECTOR(7 downto 0); 
-            S : in  STD_LOGIC_VECTOR(2 downto 0); 
-            Y : out STD_LOGIC 
-        ); 
-    end component; 
- 
-    -- Test Signals 
-    signal tb_I : STD_LOGIC_VECTOR(7 downto 0) := "10101010"; -- Sample input pattern 
-    signal tb_S : STD_LOGIC_VECTOR(2 downto 0) := "000"; 
-    signal tb_Y : STD_LOGIC; 
- 
+architecture Dataflow of mux8to1 is 
 begin 
-    -- Instantiate Unit Under Test (UUT) 
-    uut: mux8to1 
-        port map ( 
-            I => tb_I, 
-            S => tb_S, 
-            Y => tb_Y 
-        ); 
- 
-    -- Stimulus Process 
-    stim_proc: process 
-    begin 
-        -- Sweep through all select lines from 0 to 7 
-        for i in 0 to 7 loop 
-            tb_S <= std_logic_vector(to_unsigned(i, 3)); 
-            wait for 10 ns; 
-        end loop; 
- 
-        -- End simulation 
-        wait; 
-    end process; 
-end Behavior;`
+    Y <= I(0) when S = "000" else 
+         I(1) when S = "001" else 
+         I(2) when S = "010" else 
+         I(3) when S = "011" else 
+         I(4) when S = "100" else 
+         I(5) when S = "101" else 
+         I(6) when S = "110" else 
+         I(7) when S = "111" else 
+         '0'; 
+end Dataflow;`
       }
     ]
   },
   {
     id: "vlsi-exp2",
-    title: "Exp 2: Half Adder (Structural Style)",
-    file: "half_adder_structural.vhd",
+    title: "Exp 2: Half Adder",
+    file: "half_adder.vhd",
     category: "Xilinx Design Suite - Combinational",
-    description: "VHDL code for Half Adder constructed structurally using basic XOR and AND gate components along with its testbench.",
-    tags: ["VHDL", "Half Adder", "Structural", "Component"],
+    description: "VHDL code for Half Adder in both Structural style (using XOR and AND gates) and Behavioral style, with simulation testbenches.",
+    tags: ["VHDL", "Half Adder", "Structural", "Behavioral", "Component"],
     codeFiles: [
+      {
+        filename: "half_adder_behavioral.vhd",
+        language: "vhdl",
+        code: `library IEEE; 
+use IEEE.STD_LOGIC_1164.ALL; 
+ 
+entity Halfadder is 
+    Port ( 
+        A     : in  STD_LOGIC; 
+        B     : in  STD_LOGIC; 
+        SUM   : out STD_LOGIC; 
+        CARRY : out STD_LOGIC 
+    ); 
+end Halfadder; 
+ 
+architecture Behavioral of Halfadder is 
+begin 
+    process(A, B) 
+    begin 
+        SUM   <= A XOR B; 
+        CARRY <= A AND B; 
+    end process; 
+end Behavioral;`
+      },
+      {
+        filename: "half_adder_behavioral_tb.vhd",
+        language: "vhdl",
+        code: `LIBRARY ieee; 
+USE ieee.std_logic_1164.ALL; 
+ 
+ENTITY HalfAdder_tb IS 
+END HalfAdder_tb; 
+ 
+ARCHITECTURE behavior OF HalfAdder_tb IS 
+    -- Component Declaration for the Unit Under Test (UUT) 
+    COMPONENT Halfadder 
+    PORT( 
+        A     : IN  std_logic; 
+        B     : IN  std_logic; 
+        SUM   : OUT std_logic; 
+        CARRY : OUT std_logic 
+    ); 
+    END COMPONENT; 
+ 
+    -- Inputs 
+    signal A     : std_logic := '0'; 
+    signal B     : std_logic := '0'; 
+    -- Outputs 
+    signal SUM   : std_logic; 
+    signal CARRY : std_logic; 
+ 
+BEGIN 
+    -- Instantiate the Unit Under Test (UUT) 
+    uut: Halfadder PORT MAP ( 
+        A     => A, 
+        B     => B, 
+        SUM   => SUM, 
+        CARRY => CARRY 
+    ); 
+ 
+    -- Stimulus process 
+    stim_proc: process 
+    begin 
+        A <= '0'; B <= '0'; wait for 10 ns; 
+        A <= '0'; B <= '1'; wait for 10 ns; 
+        A <= '1'; B <= '0'; wait for 10 ns; 
+        A <= '1'; B <= '1'; wait for 10 ns; 
+        wait; 
+    end process; 
+END behavior;`
+      },
       {
         filename: "half_adder_structural.vhd",
         language: "vhdl",
         code: `library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL; 
  
-entity xor_gate is 
-    Port ( A, B : in STD_LOGIC; Y : out STD_LOGIC ); 
-end xor_gate; 
+entity XOR_GATE is 
+    Port ( 
+        A : in  STD_LOGIC; 
+        B : in  STD_LOGIC; 
+        Y : out STD_LOGIC 
+    ); 
+end XOR_GATE; 
  
-architecture Dataflow of xor_gate is 
+architecture Behavioral of XOR_GATE is 
 begin 
-    Y <= A xor B; 
-end Dataflow; 
+    Y <= A XOR B; 
+end Behavioral; 
  
 library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL; 
  
-entity and_gate is 
-    Port ( A, B : in STD_LOGIC; Y : out STD_LOGIC ); 
-end and_gate; 
+entity AND_GATE is 
+    Port ( 
+        A : in  STD_LOGIC; 
+        B : in  STD_LOGIC; 
+        Y : out STD_LOGIC 
+    ); 
+end AND_GATE; 
  
-architecture Dataflow of and_gate is 
+architecture Behavioral of AND_GATE is 
 begin 
-    Y <= A and B; 
-end Dataflow; 
+    Y <= A AND B; 
+end Behavioral; 
  
 library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL; 
  
-entity half_adder_structural is 
+entity Half_Adder is 
     Port ( 
         A     : in  STD_LOGIC; 
         B     : in  STD_LOGIC; 
-        Sum   : out STD_LOGIC; 
-        Carry : out STD_LOGIC 
+        SUM   : out STD_LOGIC; 
+        CARRY : out STD_LOGIC 
     ); 
-end half_adder_structural; 
+end Half_Adder; 
  
-architecture Structural of half_adder_structural is 
-    component xor_gate 
-        Port ( A, B : in STD_LOGIC; Y : out STD_LOGIC ); 
+architecture Structural of Half_Adder is 
+    component XOR_GATE 
+        Port ( 
+            A : in  STD_LOGIC; 
+            B : in  STD_LOGIC; 
+            Y : out STD_LOGIC 
+        ); 
     end component; 
  
-    component and_gate 
-        Port ( A, B : in STD_LOGIC; Y : out STD_LOGIC ); 
+    component AND_GATE 
+        Port ( 
+            A : in  STD_LOGIC; 
+            B : in  STD_LOGIC; 
+            Y : out STD_LOGIC 
+        ); 
     end component; 
+ 
 begin 
-    U1_XOR : xor_gate port map ( A => A, B => B, Y => Sum ); 
-    U2_AND : and_gate port map ( A => A, B => B, Y => Carry ); 
+    X1: XOR_GATE PORT MAP ( 
+        A => A, 
+        B => B, 
+        Y => SUM 
+    ); 
+ 
+    A1: AND_GATE PORT MAP ( 
+        A => A, 
+        B => B, 
+        Y => CARRY 
+    ); 
 end Structural;`
       },
       {
-        filename: "tb_half_adder_structural.vhd",
+        filename: "half_adder_structural_tb.vhd",
         language: "vhdl",
         code: `library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL; 
  
-entity tb_half_adder_structural is 
--- Testbench has no ports 
-end tb_half_adder_structural; 
+entity Half_Adder_tb is 
+end Half_Adder_tb; 
  
-architecture Behavior of tb_half_adder_structural is 
-    component half_adder_structural 
+architecture behavior of Half_Adder_tb is 
+    component Half_Adder 
         Port ( 
             A     : in  STD_LOGIC; 
             B     : in  STD_LOGIC; 
-            Sum   : out STD_LOGIC; 
-            Carry : out STD_LOGIC 
+            SUM   : out STD_LOGIC; 
+            CARRY : out STD_LOGIC 
         ); 
     end component; 
  
-    signal tb_A     : STD_LOGIC := '0'; 
-    signal tb_B     : STD_LOGIC := '0'; 
-    signal tb_Sum   : STD_LOGIC; 
-    signal tb_Carry : STD_LOGIC; 
+    signal A     : STD_LOGIC := '0'; 
+    signal B     : STD_LOGIC := '0'; 
+    signal SUM   : STD_LOGIC; 
+    signal CARRY : STD_LOGIC; 
  
 begin 
-    uut: half_adder_structural 
-        port map ( 
-            A     => tb_A, 
-            B     => tb_B, 
-            Sum   => tb_Sum, 
-            Carry => tb_Carry 
-        ); 
+    uut: Half_Adder PORT MAP ( 
+        A     => A, 
+        B     => B, 
+        SUM   => SUM, 
+        CARRY => CARRY 
+    ); 
  
     stim_proc: process 
     begin 
-        tb_A <= '0'; tb_B <= '0'; wait for 10 ns; 
-        tb_A <= '0'; tb_B <= '1'; wait for 10 ns; 
-        tb_A <= '1'; tb_B <= '0'; wait for 10 ns; 
-        tb_A <= '1'; tb_B <= '1'; wait for 10 ns; 
+        A <= '0'; B <= '0'; wait for 10 ns; 
+        A <= '0'; B <= '1'; wait for 10 ns; 
+        A <= '1'; B <= '0'; wait for 10 ns; 
+        A <= '1'; B <= '1'; wait for 10 ns; 
         wait; 
     end process; 
-end Behavior;`
+end behavior;`
       }
     ]
   },
@@ -202,65 +324,125 @@ end Behavior;`
     title: "Exp 3: Arithmetic Logic Unit (ALU)",
     file: "alu.vhd",
     category: "Xilinx Design Suite - ALU",
-    description: "4-bit Arithmetic Logic Unit performing Addition, Subtraction, AND, and OR operations controlled by a 2-bit select signal.",
-    tags: ["VHDL", "ALU", "Arithmetic", "Logic"],
+    description: "4-bit Arithmetic Logic Unit performing 8 arithmetic and logic operations (+, -, +1, -1, AND, OR, XOR, NOT) using 3-bit select lines, with Behavioral and Dataflow styles.",
+    tags: ["VHDL", "ALU", "Arithmetic", "Logic", "8 Operations"],
     codeFiles: [
       {
         filename: "alu.vhd",
         language: "vhdl",
-        code: `library ieee; 
-use ieee.std_logic_1164.all; 
-use ieee.numeric_std.all; 
+        code: `library IEEE; 
+use IEEE.STD_LOGIC_1164.ALL; 
+use IEEE.STD_LOGIC_UNSIGNED.ALL; 
  
-entity alu is 
-    port ( 
-        a, b : in  std_logic_vector(3 downto 0); 
-        sel  : in  std_logic_vector(1 downto 0); 
-        y    : out std_logic_vector(3 downto 0) 
+entity ALU is 
+    Port ( 
+        A      : in  STD_LOGIC_VECTOR (3 downto 0); 
+        B      : in  STD_LOGIC_VECTOR (3 downto 0); 
+        SEL    : in  STD_LOGIC_VECTOR (2 downto 0); 
+        RESULT : out STD_LOGIC_VECTOR (3 downto 0) 
     ); 
-end entity; 
+end ALU; 
  
-architecture bhv of alu is 
+architecture Behavioral of ALU is 
 begin 
-    process(a, b, sel) 
+    process(A, B, SEL) 
     begin 
-        case sel is 
-            when "00" => y <= std_logic_vector(unsigned(a) + unsigned(b)); -- ADD 
-            when "01" => y <= std_logic_vector(unsigned(a) - unsigned(b)); -- SUB 
-            when "10" => y <= a and b;                                     -- AND 
-            when "11" => y <= a or b;                                      -- OR 
-            when others => y <= (others => '0'); 
+        case SEL is 
+            when "000" => RESULT <= A + B;        -- Addition 
+            when "001" => RESULT <= A - B;        -- Subtraction 
+            when "010" => RESULT <= A + "0001";   -- Increment A 
+            when "011" => RESULT <= A - "0001";   -- Decrement A 
+            when "100" => RESULT <= A AND B;      -- Bitwise AND 
+            when "101" => RESULT <= A OR B;       -- Bitwise OR 
+            when "110" => RESULT <= A XOR B;      -- Bitwise XOR 
+            when "111" => RESULT <= NOT A;        -- Bitwise NOT A 
+            when others => RESULT <= "0000"; 
         end case; 
     end process; 
-end architecture;`
+end Behavioral;`
       },
       {
         filename: "alu_tb.vhd",
         language: "vhdl",
-        code: `library ieee; 
-use ieee.std_logic_1164.all; 
+        code: `LIBRARY ieee; 
+USE ieee.std_logic_1164.ALL; 
  
-entity alu_tb is 
-end entity; 
+ENTITY ALU_tb IS 
+END ALU_tb; 
  
-architecture tb of alu_tb is 
-    signal a, b, y : std_logic_vector(3 downto 0) := "0000"; 
-    signal sel     : std_logic_vector(1 downto 0) := "00"; 
-begin 
-    uut: entity work.alu port map (a => a, b => b, sel => sel, y => y); 
+ARCHITECTURE behavior OF ALU_tb IS 
+    -- Component Declaration for the Unit Under Test (UUT) 
+    COMPONENT ALU 
+    PORT( 
+        A      : IN  std_logic_vector(3 downto 0); 
+        B      : IN  std_logic_vector(3 downto 0); 
+        SEL    : IN  std_logic_vector(2 downto 0); 
+        RESULT : OUT std_logic_vector(3 downto 0) 
+    ); 
+    END COMPONENT; 
  
-    process 
+    -- Inputs 
+    signal A   : std_logic_vector(3 downto 0) := (others => '0'); 
+    signal B   : std_logic_vector(3 downto 0) := (others => '0'); 
+    signal SEL : std_logic_vector(2 downto 0) := (others => '0'); 
+    -- Outputs 
+    signal RESULT : std_logic_vector(3 downto 0); 
+ 
+BEGIN 
+    -- Instantiate the Unit Under Test (UUT) 
+    uut: ALU PORT MAP ( 
+        A      => A, 
+        B      => B, 
+        SEL    => SEL, 
+        RESULT => RESULT 
+    ); 
+ 
+    -- Stimulus process 
+    stim_proc: process 
     begin 
-        a <= "0110"; b <= "0010"; -- A = 6, B = 2 
+        A <= "0101"; 
+        B <= "0011"; 
  
-        sel <= "00"; wait for 10 ns; -- ADD (Expect 1000 = 8) 
-        sel <= "01"; wait for 10 ns; -- SUB (Expect 0100 = 4) 
-        sel <= "10"; wait for 10 ns; -- AND (Expect 0010 = 2) 
-        sel <= "11"; wait for 10 ns; -- OR  (Expect 0110 = 6) 
- 
-        wait; -- Stop simulation 
+        SEL <= "000"; wait for 10 ns; -- Addition: 0101 + 0011 = 1000 
+        SEL <= "001"; wait for 10 ns; -- Subtraction: 0101 - 0011 = 0010 
+        SEL <= "010"; wait for 10 ns; -- Increment: 0101 + 1 = 0110 
+        SEL <= "011"; wait for 10 ns; -- Decrement: 0101 - 1 = 0100 
+        SEL <= "100"; wait for 10 ns; -- AND: 0101 AND 0011 = 0001 
+        SEL <= "101"; wait for 10 ns; -- OR:  0101 OR 0011  = 0111 
+        SEL <= "110"; wait for 10 ns; -- XOR: 0101 XOR 0011 = 0110 
+        SEL <= "111"; wait for 10 ns; -- NOT: NOT 0101      = 1010 
+        wait; 
     end process; 
-end architecture;`
+END behavior;`
+      },
+      {
+        filename: "alu_dataflow.vhd",
+        language: "vhdl",
+        code: `library IEEE; 
+use IEEE.STD_LOGIC_1164.ALL; 
+use IEEE.STD_LOGIC_UNSIGNED.ALL; 
+ 
+entity ALU is 
+    Port ( 
+        A      : in  STD_LOGIC_VECTOR(3 downto 0); 
+        B      : in  STD_LOGIC_VECTOR(3 downto 0); 
+        SEL    : in  STD_LOGIC_VECTOR(2 downto 0); 
+        RESULT : out STD_LOGIC_VECTOR(3 downto 0) 
+    ); 
+end ALU; 
+ 
+architecture Dataflow of ALU is 
+begin 
+    RESULT <= A + B        when SEL = "000" else 
+              A - B        when SEL = "001" else 
+              A + "0001"   when SEL = "010" else 
+              A - "0001"   when SEL = "011" else 
+              A AND B      when SEL = "100" else 
+              A OR B       when SEL = "101" else 
+              A XOR B      when SEL = "110" else 
+              NOT A        when SEL = "111" else 
+              "0000"; 
+end Dataflow;`
       }
     ]
   },
@@ -269,89 +451,140 @@ end architecture;`
     title: "Exp 4: Universal Shift Register",
     file: "univ_shift_reg.vhd",
     category: "Xilinx Design Suite - Sequential",
-    description: "4-bit Universal Shift Register with modes for Hold (00), Shift Right (01), Shift Left (10), and Parallel Load (11).",
-    tags: ["VHDL", "Shift Register", "Parallel Load", "Sequential"],
+    description: "4-bit Universal Shift Register supporting Hold (00), Shift Right (01), Shift Left (10), and Parallel Load (11) modes with synchronous clock and active-high reset.",
+    tags: ["VHDL", "Shift Register", "Parallel Load", "Sequential", "USR"],
     codeFiles: [
       {
-        filename: "univ_shift_reg.vhd",
+        filename: "Universal_Shift_Register.vhd",
         language: "vhdl",
-        code: `library ieee; 
-use ieee.std_logic_1164.all; 
+        code: `library IEEE; 
+use IEEE.STD_LOGIC_1164.ALL; 
  
-entity univ_shift_reg is 
-    port ( 
-        clk, rst : in  std_logic; 
-        sel      : in  std_logic_vector(1 downto 0); -- Mode control 
-        d_in     : in  std_logic_vector(3 downto 0); -- Parallel input 
-        s_left   : in  std_logic;                    -- Serial input for Left Shift 
-        s_right  : in  std_logic;                    -- Serial input for Right Shift 
-        q        : out std_logic_vector(3 downto 0)  -- Parallel output 
+entity Universal_Shift_Register is 
+    Port ( 
+        CLK : in  STD_LOGIC; 
+        RST : in  STD_LOGIC; 
+        S   : in  STD_LOGIC_VECTOR (1 downto 0); 
+        SL  : in  STD_LOGIC; 
+        SR  : in  STD_LOGIC; 
+        P   : in  STD_LOGIC_VECTOR (3 downto 0); 
+        Q   : out STD_LOGIC_VECTOR (3 downto 0) 
     ); 
-end entity; 
+end Universal_Shift_Register; 
  
-architecture bhv of univ_shift_reg is 
-    signal temp : std_logic_vector(3 downto 0); 
+architecture Behavioral of Universal_Shift_Register is 
+    signal Q_reg : STD_LOGIC_VECTOR(3 downto 0); 
 begin 
-    process(clk, rst) 
+    process(CLK, RST) 
     begin 
-        if rst = '1' then 
-            temp <= (others => '0'); 
-        elsif rising_edge(clk) then 
-            case sel is 
-                when "00"   => temp <= temp;                       -- Hold 
-                when "01"   => temp <= s_right & temp(3 downto 1); -- Shift Right 
-                when "10"   => temp <= temp(2 downto 0) & s_left;  -- Shift Left 
-                when "11"   => temp <= d_in;                       -- Parallel Load 
-                when others => temp <= temp; 
+        if RST = '1' then 
+            Q_reg <= "0000"; 
+        elsif rising_edge(CLK) then 
+            case S is 
+                when "00" => Q_reg <= Q_reg;                          -- Hold 
+                when "01" => Q_reg <= SR & Q_reg(3 downto 1);         -- Shift Right 
+                when "10" => Q_reg <= Q_reg(2 downto 0) & SL;         -- Shift Left 
+                when "11" => Q_reg <= P;                              -- Parallel Load 
+                when others => Q_reg <= Q_reg; 
             end case; 
         end if; 
     end process; 
-    q <= temp; 
-end architecture;`
+    Q <= Q_reg; 
+end Behavioral;`
       },
       {
-        filename: "univ_shift_reg_tb.vhd",
+        filename: "USR_tb.vhd",
         language: "vhdl",
-        code: `library ieee; 
-use ieee.std_logic_1164.all; 
+        code: `LIBRARY ieee; 
+USE ieee.std_logic_1164.ALL; 
  
-entity univ_shift_reg_tb is 
-end entity; 
+ENTITY USR_tb IS 
+END USR_tb; 
  
-architecture tb of univ_shift_reg_tb is 
-    signal clk, rst : std_logic := '0'; 
-    signal sel      : std_logic_vector(1 downto 0) := "00"; 
-    signal d_in     : std_logic_vector(3 downto 0) := "0000"; 
-    signal s_left   : std_logic := '0'; 
-    signal s_right  : std_logic := '0'; 
-    signal q        : std_logic_vector(3 downto 0); 
-begin 
-    uut: entity work.univ_shift_reg 
-        port map (clk => clk, rst => rst, sel => sel, d_in => d_in, 
-                  s_left => s_left, s_right => s_right, q => q); 
+ARCHITECTURE behavior OF USR_tb IS 
+    -- Component Declaration for the Unit Under Test (UUT) 
+    COMPONENT Universal_Shift_Register 
+    PORT( 
+        CLK : IN  std_logic; 
+        RST : IN  std_logic; 
+        S   : IN  std_logic_vector(1 downto 0); 
+        SL  : IN  std_logic; 
+        SR  : IN  std_logic; 
+        P   : IN  std_logic_vector(3 downto 0); 
+        Q   : OUT std_logic_vector(3 downto 0) 
+    ); 
+    END COMPONENT; 
  
-    clk <= not clk after 5 ns; 
+    -- Inputs 
+    signal CLK : std_logic := '0'; 
+    signal RST : std_logic := '0'; 
+    signal S   : std_logic_vector(1 downto 0) := (others => '0'); 
+    signal SL  : std_logic := '0'; 
+    signal SR  : std_logic := '0'; 
+    signal P   : std_logic_vector(3 downto 0) := (others => '0'); 
+    -- Outputs 
+    signal Q   : std_logic_vector(3 downto 0); 
  
-    process 
+BEGIN 
+    -- Instantiate the Unit Under Test (UUT) 
+    uut: Universal_Shift_Register PORT MAP ( 
+        CLK => CLK, 
+        RST => RST, 
+        S   => S, 
+        SL  => SL, 
+        SR  => SR, 
+        P   => P, 
+        Q   => Q 
+    ); 
+ 
+    -- Clock generation (50 MHz / 20 ns period) 
+    CLK <= not CLK after 10 ns; 
+ 
+    -- Stimulus process 
+    stim_proc: process 
     begin 
-        rst <= '1'; wait for 10 ns; 
-        rst <= '0'; wait for 10 ns; 
+        -- Reset 
+        RST <= '1'; 
+        wait for 100 ns; 
+        RST <= '0'; 
  
-        -- 1. Parallel Load "1010" 
-        sel <= "11"; d_in <= "1010"; wait for 10 ns; 
+        -- Parallel Load 
+        P <= "1100"; 
+        S <= "11"; 
+        wait for 100 ns; 
  
-        -- 2. Hold state 
-        sel <= "00"; wait for 10 ns; 
+        -- Hold 
+        S <= "00"; 
+        wait for 100 ns; 
  
-        -- 3. Shift Right with serial input '1' 
-        sel <= "01"; s_right <= '1'; wait for 10 ns; 
+        -- Shift Right 
+        SR <= '1'; 
+        S  <= "01"; 
+        wait for 100 ns; 
  
-        -- 4. Shift Left with serial input '0' 
-        sel <= "10"; s_left <= '0'; wait for 10 ns; 
+        -- Shift Left 
+        SL <= '0'; 
+        S  <= "10"; 
+        wait for 100 ns; 
+ 
+        -- Parallel Load 
+        P <= "1010"; 
+        S <= "11"; 
+        wait for 100 ns; 
+ 
+        -- Shift Right 
+        SR <= '0'; 
+        S  <= "01"; 
+        wait for 100 ns; 
+ 
+        -- Shift Left 
+        SL <= '1'; 
+        S  <= "10"; 
+        wait for 100 ns; 
  
         wait; 
     end process; 
-end architecture;`
+END behavior;`
       }
     ]
   },
@@ -360,8 +593,8 @@ end architecture;`
     title: "Exp 5: MOD-N Counter",
     file: "mod_n_counter.vhd",
     category: "Xilinx Design Suite - Sequential",
-    description: "Generic MOD-N synchronous counter with asynchronous reset, simulated with testbench, complete with Page 5 Simulation Waveforms and RTL Schematic.",
-    tags: ["VHDL", "MOD-N", "Counter", "Waveform", "RTL Schematic"],
+    description: "MOD-6 synchronous counter using integer range and synchronous reset, simulated with testbench, complete with Page 5 Simulation Waveforms and RTL Schematic.",
+    tags: ["VHDL", "MOD-N", "Counter", "Waveform", "RTL Schematic", "MOD-6"],
     images: [
       {
         caption: "MOD-N Counter Simulation Waveform (Page 5)",
@@ -374,86 +607,82 @@ end architecture;`
     ],
     codeFiles: [
       {
-        filename: "mod_n_counter.vhd",
+        filename: "count_n.vhd",
         language: "vhdl",
         code: `library IEEE; 
 use IEEE.STD_LOGIC_1164.ALL; 
-use IEEE.NUMERIC_STD.ALL; 
+use IEEE.STD_LOGIC_UNSIGNED.ALL; 
+use IEEE.STD_LOGIC_ARITH.ALL; 
  
-entity mod_n_counter is 
-    generic ( 
-        N     : integer := 10; 
-        WIDTH : integer := 4 
-    ); 
+entity count_n is 
+    generic (N: integer := 6); 
     port ( 
-        clk : in  std_logic; 
-        rst : in  std_logic; 
-        q   : out std_logic_vector(WIDTH - 1 downto 0) 
+        rst, clk : in  std_logic; 
+        Q        : out integer range 0 to N-1 
     ); 
-end entity mod_n_counter; 
+end count_n; 
  
-architecture Behavioral of mod_n_counter is 
-    signal count : unsigned(WIDTH - 1 downto 0) := (others => '0'); 
+architecture Behavioral of count_n is 
+    signal temp : integer range 0 to N-1; 
 begin 
-    process(clk, rst) 
+    process (rst, clk) 
     begin 
-        if rst = '1' then 
-            count <= (others => '0'); 
-        elsif rising_edge(clk) then 
-            if count = N - 1 then 
-                count <= (others => '0'); 
+        if clk'event and clk = '1' then 
+            if (rst = '1' or temp >= N-1) then 
+                temp <= 0; 
             else 
-                count <= count + 1; 
+                temp <= temp + 1; 
             end if; 
         end if; 
     end process; 
-    q <= std_logic_vector(count); 
-end architecture Behavioral;`
+    Q <= temp; 
+end Behavioral;`
       },
       {
-        filename: "tb_mod_n_counter.vhd",
+        filename: "countern_tb.vhd",
         language: "vhdl",
-        code: `library ieee; 
-use ieee.std_logic_1164.all; 
+        code: `LIBRARY ieee; 
+USE ieee.std_logic_1164.ALL; 
  
-entity tb_mod_n_counter is 
-end entity; 
+ENTITY countern_tb IS 
+END countern_tb; 
  
-architecture tb of tb_mod_n_counter is 
-    constant N_VAL     : integer := 10; 
-    constant WIDTH_VAL : integer := 4; 
+ARCHITECTURE behavioral OF countern_tb IS 
+    -- Component Declaration for the Unit Under Test (UUT) 
+    COMPONENT count_n 
+    GENERIC (N : integer := 6); 
+    PORT( 
+        rst : IN  std_logic; 
+        clk : IN  std_logic; 
+        Q   : OUT integer range 0 to N-1 
+    ); 
+    END COMPONENT; 
  
-    signal clk : std_logic := '0'; 
+    -- Inputs 
     signal rst : std_logic := '0'; 
-    signal q   : std_logic_vector(WIDTH_VAL - 1 downto 0); 
+    signal clk : std_logic := '0'; 
+    -- Outputs 
+    signal Q   : integer range 0 to 5; 
  
-begin 
-    uut: entity work.mod_n_counter 
-        generic map ( 
-            N     => N_VAL, 
-            WIDTH => WIDTH_VAL 
-        ) 
-        port map ( 
-            clk => clk, 
-            rst => rst, 
-            q   => q 
-        ); 
+BEGIN 
+    -- Instantiate the Unit Under Test (UUT) 
+    uut: count_n PORT MAP ( 
+        rst => rst, 
+        clk => clk, 
+        Q   => Q 
+    ); 
  
-    clk_process : process 
-    begin 
-        clk <= '0'; wait for 5 ns; 
-        clk <= '1'; wait for 5 ns; 
-    end process; 
+    -- Clock generation (50 MHz / 20 ns period) 
+    clk <= not clk after 10 ns; 
  
+    -- Stimulus process 
     stim_proc: process 
     begin 
-        rst <= '1'; wait for 20 ns; 
-        rst <= '0'; wait for 200 ns; 
-        rst <= '1'; wait for 10 ns; 
-        rst <= '0'; 
+        RST <= '1'; wait for 20 ns; 
+        RST <= '0'; wait for 140 ns; 
         wait; 
     end process; 
-end architecture;`
+END behavioral;`
       }
     ]
   },
@@ -462,88 +691,175 @@ end architecture;`
     title: "Exp 6: First In First Out (FIFO)",
     file: "std_fifo.vhd",
     category: "Xilinx Design Suite - Memory & Buffers",
-    description: "Synchronous FIFO buffer with generic data width and depth, write enable, read enable, full, and empty flags.",
-    tags: ["VHDL", "FIFO", "Memory Buffer", "Xilinx"],
+    description: "Synchronous FIFO buffer with generic data width and depth (8x8), circular buffer with modulo indexing, count tracking, empty/full flags, and simulation testbench.",
+    tags: ["VHDL", "FIFO", "Memory Buffer", "Xilinx", "Testbench"],
     codeFiles: [
       {
         filename: "std_fifo.vhd",
         language: "vhdl",
-        code: `LIBRARY IEEE; 
-USE IEEE.STD_LOGIC_1164.ALL; 
-USE IEEE.NUMERIC_STD.ALL; 
+        code: `library IEEE; 
+use IEEE.STD_LOGIC_1164.ALL; 
  
 entity STD_FIFO is 
     Generic ( 
-        constant DATA_WIDTH : positive := 8; 
-        constant FIFO_DEPTH : positive := 8 
+        DATA_WIDTH : positive := 8; 
+        FIFO_DEPTH : positive := 8 
     ); 
     Port ( 
         CLK     : in  STD_LOGIC; 
         RST     : in  STD_LOGIC; 
         WriteEn : in  STD_LOGIC; 
-        DataIn  : in  STD_LOGIC_VECTOR (DATA_WIDTH - 1 downto 0); 
+        DataIn  : in  STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0); 
         ReadEn  : in  STD_LOGIC; 
-        DataOut : out STD_LOGIC_VECTOR (DATA_WIDTH - 1 downto 0); 
+        DataOut : out STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0); 
         Empty   : out STD_LOGIC; 
         Full    : out STD_LOGIC 
     ); 
 end STD_FIFO; 
  
 architecture Behavioral of STD_FIFO is 
+    type FIFO_Memory is array (0 to FIFO_DEPTH-1) 
+        of STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0); 
 begin 
-    fifo_proc : process(CLK) 
-        type FIFO_Memory is array (0 to FIFO_DEPTH - 1) of STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0); 
+    fifo_proc: process(CLK) 
         variable Memory : FIFO_Memory; 
-        variable Head   : natural range 0 to FIFO_DEPTH - 1; 
-        variable Tail   : natural range 0 to FIFO_DEPTH - 1; 
-        variable Looped : boolean; 
+        variable Head   : integer range 0 to FIFO_DEPTH-1 := 0; 
+        variable Tail   : integer range 0 to FIFO_DEPTH-1 := 0; 
+        variable Count  : integer range 0 to FIFO_DEPTH := 0; 
     begin 
         if rising_edge(CLK) then 
             if RST = '1' then 
                 Head := 0; 
                 Tail := 0; 
-                Looped := false; 
-                Full <= '0'; 
-                Empty <= '1'; 
+                Count := 0; 
+                DataOut <= (others => '0'); 
+                Empty   <= '1'; 
+                Full    <= '0'; 
             else 
-                if (ReadEn = '1') then 
-                    if ((Looped = true) or (Head /= Tail)) then 
-                        DataOut <= Memory(Tail); 
-                        if (Tail = FIFO_DEPTH - 1) then 
-                            Tail := 0; 
-                            Looped := false; 
-                        else 
-                            Tail := Tail + 1; 
-                        end if; 
-                    end if; 
+                -- READ OPERATION 
+                if ReadEn = '1' and Count > 0 then 
+                    DataOut <= Memory(Head); 
+                    Head := (Head + 1) mod FIFO_DEPTH; 
+                    Count := Count - 1; 
                 end if; 
  
-                if (WriteEn = '1') then 
-                    if ((Looped = false) or (Head /= Tail)) then 
-                        Memory(Head) := DataIn; 
-                        if (Head = FIFO_DEPTH - 1) then 
-                            Head := 0; 
-                            Looped := true; 
-                        else 
-                            Head := Head + 1; 
-                        end if; 
-                    end if; 
+                -- WRITE OPERATION 
+                if WriteEn = '1' and Count < FIFO_DEPTH then 
+                    Memory(Tail) := DataIn; 
+                    Tail := (Tail + 1) mod FIFO_DEPTH; 
+                    Count := Count + 1; 
                 end if; 
  
-                if (Head = Tail) then 
-                    if Looped then 
-                        Full <= '1'; 
-                    else 
-                        Empty <= '1'; 
-                    end if; 
+                -- FIFO STATUS 
+                if Count = 0 then 
+                    Empty <= '1'; 
                 else 
                     Empty <= '0'; 
-                    Full  <= '0'; 
+                end if; 
+ 
+                if Count = FIFO_DEPTH then 
+                    Full <= '1'; 
+                else 
+                    Full <= '0'; 
                 end if; 
             end if; 
         end if; 
     end process; 
 end Behavioral;`
+      },
+      {
+        filename: "std_fifo_tb.vhd",
+        language: "vhdl",
+        code: `LIBRARY ieee; 
+USE ieee.std_logic_1164.ALL; 
+ 
+ENTITY STD_FIFO_tb IS 
+END STD_FIFO_tb; 
+ 
+ARCHITECTURE behavior OF STD_FIFO_tb IS 
+    COMPONENT STD_FIFO 
+        GENERIC ( 
+            DATA_WIDTH : positive := 8; 
+            FIFO_DEPTH : positive := 8 
+        ); 
+        PORT ( 
+            CLK     : IN  std_logic; 
+            RST     : IN  std_logic; 
+            WriteEn : IN  std_logic; 
+            DataIn  : IN  std_logic_vector(DATA_WIDTH-1 downto 0); 
+            ReadEn  : IN  std_logic; 
+            DataOut : OUT std_logic_vector(DATA_WIDTH-1 downto 0); 
+            Empty   : OUT std_logic; 
+            Full    : OUT std_logic 
+        ); 
+    END COMPONENT; 
+ 
+    signal CLK     : std_logic := '0'; 
+    signal RST     : std_logic := '0'; 
+    signal WriteEn : std_logic := '0'; 
+    signal DataIn  : std_logic_vector(7 downto 0) := (others => '0'); 
+    signal ReadEn  : std_logic := '0'; 
+ 
+    signal DataOut : std_logic_vector(7 downto 0); 
+    signal Empty   : std_logic; 
+    signal Full    : std_logic; 
+ 
+BEGIN 
+    uut: STD_FIFO 
+        PORT MAP ( 
+            CLK      => CLK, 
+            RST      => RST, 
+            WriteEn  => WriteEn, 
+            DataIn   => DataIn, 
+            ReadEn   => ReadEn, 
+            DataOut  => DataOut, 
+            Empty    => Empty, 
+            Full     => Full 
+        ); 
+ 
+    -- Clock generation (50 MHz / 20 ns period) 
+    CLK <= NOT CLK AFTER 10 ns; 
+ 
+    -- Testbench stimulus 
+    stim_proc: process 
+    begin 
+        -- Reset 
+        RST <= '1'; 
+        wait for 20 ns; 
+        RST <= '0'; 
+ 
+        -- Write first data 
+        WriteEn <= '1'; 
+        DataIn  <= "10101010"; 
+        wait for 20 ns; 
+ 
+        -- Write second data 
+        DataIn  <= "00001111"; 
+        wait for 20 ns; 
+ 
+        -- Write third data 
+        DataIn  <= "11001100"; 
+        wait for 20 ns; 
+ 
+        -- Stop writing 
+        WriteEn <= '0'; 
+        wait for 20 ns; 
+ 
+        -- Read first data 
+        ReadEn  <= '1'; 
+        wait for 20 ns; 
+ 
+        -- Read second data 
+        wait for 20 ns; 
+ 
+        -- Read third data 
+        wait for 20 ns; 
+ 
+        -- Stop reading 
+        ReadEn  <= '0'; 
+        wait; 
+    end process; 
+END behavior;`
       }
     ]
   },
