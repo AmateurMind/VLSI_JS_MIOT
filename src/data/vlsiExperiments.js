@@ -1042,40 +1042,44 @@ end Behavioral;`
     ],
     codeFiles: [
       {
-        filename: "inverter_exp8.msk",
+        filename: "8_inverter.msk",
         language: "text",
-        code: `VERSION 16-11-2026 23:40:00
-FIG #inverter_exp8.MSK
-BB(6,7,34,54)
+        code: `VERSION 16-11-2026 22:17:45
+FIG #8_inverter.MSK
+BB(21,-7,45,46)
 SIMU #5.00
-REC(6,28,28,26,NW)
-REC(12,34,6,12,DP)
-REC(20,34,6,12,DP)
-REC(12,12,6,4,DN)
-REC(20,12,6,4,DN)
-REC(14,36,2,2,CO)
-REC(14,42,2,2,CO)
-REC(22,36,2,2,CO)
-REC(22,42,2,2,CO)
-REC(14,13,2,2,CO)
-REC(22,13,2,2,CO)
-REC(18,8,2,42,PO)
-REC(12,34,5,17,ME)
-REC(12,7,5,9,ME)
-REC(21,12,5,34,ME)
-REC(18,34,2,12,DP)
-REC(18,12,2,4,DN)
-TITLE 14 50  #Vdd+
+REC(21,19,24,22,NW)
+REC(34,25,5,10,DP)
+REC(27,25,5,10,DP)
+REC(34,-3,5,10,DN)
+REC(27,-3,5,10,DN)
+REC(36,-2,2,2,CO)
+REC(36,4,2,2,CO)
+REC(36,32,2,2,CO)
+REC(28,4,2,2,CO)
+REC(28,26,2,2,CO)
+REC(28,-2,2,2,CO)
+REC(28,32,2,2,CO)
+REC(36,26,2,2,CO)
+REC(32,-6,2,44,PO)
+REC(35,-3,4,38,ME)
+REC(27,-7,4,14,ME)
+REC(27,25,4,14,ME)
+REC(32,25,2,10,DP)
+REC(32,-3,2,10,DN)
+TITLE 42 37  #Vdd
 $1 1000 0 
-TITLE 30 50  #Vdd+
+TITLE 28 37  #Vdd
 $1 1000 0 
-TITLE 14 8  #Vss-
+TITLE 29 -6  #Vss
 $0 1000 0 
-TITLE 19 25  #A
+TITLE 33 14  #A
 $c 1000 0 0.2250 0.2500 0.4750 0.5000 
-TITLE 25 25  #Y
+TITLE 37 13  #Y
 $v 1000 0 
-FFIG inverter_exp8.MSK`
+TITLE 24 46  #8 INVERTER
+$- 1000 0 
+FFIG 8_inverter.MSK`
       }
     ]
   },
@@ -1109,7 +1113,117 @@ FFIG inverter_exp8.MSK`
         src: "/images/vlsi/exp9_nand_nor_p2_2.png"
       }
     ],
-    codeFiles: []
+    codeFiles: [
+      {
+        filename: "9(1)_nand.msk",
+        language: "text",
+        code: `VERSION 16-11-2026 22:24:54
+FIG #9(1)NAND.MSK
+BB(12,4,44,55)
+SIMU #5.00
+REC(12,28,32,22,NW)
+REC(33,34,5,10,DP)
+REC(25,34,6,10,DP)
+REC(18,34,5,10,DP)
+REC(33,10,5,7,DN)
+REC(25,10,6,7,DN)
+REC(18,10,5,7,DN)
+REC(35,35,2,2,CO)
+REC(27,35,2,2,CO)
+REC(19,41,2,2,CO)
+REC(19,11,2,2,CO)
+REC(19,35,2,2,CO)
+REC(27,35,2,2,CO)
+REC(27,11,2,2,CO)
+REC(27,41,2,2,CO)
+REC(27,41,2,2,CO)
+REC(35,11,2,2,CO)
+REC(27,11,2,2,CO)
+REC(35,41,2,2,CO)
+REC(31,7,2,40,PO)
+REC(23,7,2,40,PO)
+REC(18,52,20,3,ME)
+REC(18,34,4,18,ME)
+REC(34,30,4,22,ME)
+REC(26,6,4,12,ME)
+REC(26,20,4,1,ME)
+REC(26,24,4,24,ME)
+REC(34,4,4,14,ME)
+REC(18,21,12,3,ME)
+REC(18,6,4,15,ME)
+REC(31,34,2,10,DP)
+REC(23,34,2,10,DP)
+REC(31,10,2,7,DN)
+REC(23,10,2,7,DN)
+TITLE 42 41  #Vdd
+$1 1000 0 
+TITLE 27 54  #Vdd
+$1 1000 0 
+TITLE 37 6  #Vss
+$0 1000 0 
+TITLE 24 26  #A
+$c 1000 0 0.2250 0.2500 0.4750 0.5000 
+TITLE 32 26  #B
+$c 1000 0 0.4750 0.5000 0.9750 1.0000 
+TITLE 28 26  #Y
+$v 1000 0 
+FFIG 9(1)NAND.MSK`
+      },
+      {
+        filename: "9(2)_nor.msk",
+        language: "text",
+        code: `VERSION 16-11-2026 22:51:43
+FIG #9(2)_NOR.MSK
+BB(23,-10,55,48)
+SIMU #5.00
+REC(23,26,32,22,NW)
+REC(44,32,5,10,DP)
+REC(36,32,6,10,DP)
+REC(29,32,5,10,DP)
+REC(44,2,5,10,DN)
+REC(36,2,6,10,DN)
+REC(29,2,5,10,DN)
+REC(38,39,2,2,CO)
+REC(38,9,2,2,CO)
+REC(38,3,2,2,CO)
+REC(46,33,2,2,CO)
+REC(46,39,2,2,CO)
+REC(30,3,2,2,CO)
+REC(30,33,2,2,CO)
+REC(30,9,2,2,CO)
+REC(30,39,2,2,CO)
+REC(46,9,2,2,CO)
+REC(46,3,2,2,CO)
+REC(38,33,2,2,CO)
+REC(34,-1,2,46,PO)
+REC(42,-1,2,46,PO)
+REC(29,-7,4,19,ME)
+REC(45,-7,4,19,ME)
+REC(45,32,4,14,ME)
+REC(29,22,4,24,ME)
+REC(29,18,12,4,ME)
+REC(29,-10,20,3,ME)
+REC(37,28,4,14,ME)
+REC(37,2,4,16,ME)
+REC(42,32,2,10,DP)
+REC(34,32,2,10,DP)
+REC(42,2,2,10,DN)
+REC(34,2,2,10,DN)
+TITLE 51 37  #Vdd
+$1 1000 0 
+TITLE 47 43  #Vdd
+$1 1000 0 
+TITLE 39 -9  #Vss
+$0 1000 0 
+TITLE 35 16  #A
+$c 1000 0 0.2250 0.2500 0.4750 0.5000 
+TITLE 43 16  #B
+$c 1000 0 0.4750 0.5000 0.9750 1.0000 
+TITLE 38 19  #Y
+$v 1000 0 
+FFIG 9(2)_NOR.MSK`
+      }
+    ]
   },
   {
     id: "vlsi-exp10",
@@ -1133,7 +1247,89 @@ FFIG inverter_exp8.MSK`
         src: "/images/vlsi/exp10_boolean_p2_1.png"
       }
     ],
-    codeFiles: []
+    codeFiles: [
+      {
+        filename: "10_boolean.msk",
+        language: "text",
+        code: `VERSION 16-11-2026 23:21:18
+FIG #10_boolean.MSK
+BB(-8,-18,40,54)
+SIMU #5.00
+REC(-8,16,48,32,NW)
+REC(29,22,5,20,DP)
+REC(21,22,6,20,DP)
+REC(13,22,6,20,DP)
+REC(5,22,6,20,DP)
+REC(-2,22,5,20,DP)
+REC(29,-5,5,4,DN)
+REC(21,-5,6,4,DN)
+REC(13,-5,6,4,DN)
+REC(5,-5,6,4,DN)
+REC(-2,-5,5,4,DN)
+REC(31,23,2,2,CO)
+REC(-1,29,2,2,CO)
+REC(-1,23,2,2,CO)
+REC(23,35,2,2,CO)
+REC(23,29,2,2,CO)
+REC(23,23,2,2,CO)
+REC(31,35,2,2,CO)
+REC(7,35,2,2,CO)
+REC(-1,35,2,2,CO)
+REC(15,35,2,2,CO)
+REC(15,-4,2,2,CO)
+REC(15,29,2,2,CO)
+REC(23,-4,2,2,CO)
+REC(31,-4,2,2,CO)
+REC(7,-4,2,2,CO)
+REC(-1,-4,2,2,CO)
+REC(15,23,2,2,CO)
+REC(7,23,2,2,CO)
+REC(7,29,2,2,CO)
+REC(31,29,2,2,CO)
+REC(11,-8,2,53,PO)
+REC(27,-8,2,53,PO)
+REC(3,-8,2,53,PO)
+REC(19,-8,2,53,PO)
+REC(-2,7,28,5,ME)
+REC(-2,-18,36,3,ME)
+REC(22,-5,4,8,ME)
+REC(-2,51,36,3,ME)
+REC(14,-13,4,12,ME)
+REC(-2,22,4,29,ME)
+REC(6,18,4,20,ME)
+REC(14,22,4,29,ME)
+REC(22,12,4,26,ME)
+REC(30,-15,4,14,ME)
+REC(30,22,4,29,ME)
+REC(6,-5,4,8,ME)
+REC(-2,-15,4,22,ME)
+REC(27,22,2,20,DP)
+REC(19,22,2,20,DP)
+REC(11,22,2,20,DP)
+REC(3,22,2,20,DP)
+REC(27,-5,2,4,DN)
+REC(19,-5,2,4,DN)
+REC(11,-5,2,4,DN)
+REC(3,-5,2,4,DN)
+TITLE 24 10  #Y
+$v 1000 0 
+TITLE 8 20  #Vdd
+$1 1000 0 
+TITLE 12 4  #B
+$c 1000 0 0.4750 0.5000 0.9750 1.0000 
+TITLE 4 3  #A
+$c 1000 0 0.2250 0.2500 0.4750 0.5000 
+TITLE 16 -12  #Vss
+$0 1000 0 
+TITLE 37 41  #Vdd
+$1 1000 0 
+TITLE 20 3  #s7
+$c 1000 0 0.9750 1.0000 1.9750 2.0000 
+TITLE 28 2  #s8
+$c 1000 0 1.9750 2.0000 3.9750 4.0000 
+FFIG 10_boolean.MSK`
+      }
+    ]
   },
   {
     id: "vlsi-exp11",
