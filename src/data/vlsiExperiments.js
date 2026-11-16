@@ -1020,265 +1020,58 @@ end Behavioral;`
     title: "Exp 8: CMOS Inverter using Microwind",
     file: "inverter_microwind.cir",
     category: "Microwind Layout & Simulation",
-    description: "Design and layout simulation of CMOS Inverter with PMOS pull-up and NMOS pull-down transistors, Voltage Transfer Characteristics (VTC), and transient response.",
-    tags: ["Microwind", "CMOS Inverter", "VTC", "Layout", "Simulation"],
+    description: "Design, layout, and simulation of CMOS Inverter (PMOS 6:1, NMOS 2:1) from official VLSI Inverter lab document, showing input pulse A, inverted output Y, and timing waveforms.",
+    tags: ["Microwind", "CMOS Inverter", "VTC", "Layout", "Simulation", "VLSI Inverter"],
     images: [
       {
-        caption: "CMOS Inverter Layout in Microwind",
-        src: "/images/vlsi/exp8_inverter_p1_1.png"
+        caption: "CMOS Inverter Layout in Microwind (from VLSI Inverter.pdf)",
+        src: "/images/vlsi/exp8_inverter_layout.png"
+      },
+      {
+        caption: "OUTPUT: CMOS Inverter Transient Simulation Waveforms (Input A & Output Y)",
+        src: "/images/vlsi/exp8_inverter_waveform.png"
       },
       {
         caption: "CMOS Inverter Voltage Transfer Characteristic (VTC)",
         src: "/images/vlsi/exp8_inverter_p1_2.png"
-      },
-      {
-        caption: "CMOS Inverter Layout Detailed View",
-        src: "/images/vlsi/exp8_inverter_p2_1.png"
-      },
-      {
-        caption: "CMOS Inverter Transient Simulation Waveforms",
-        src: "/images/vlsi/exp8_inverter_p2_2.png"
       }
     ],
     codeFiles: [
       {
-        filename: "out.msk",
+        filename: "inverter_exp8.msk",
         language: "text",
-        code: `VERSION 6/14/2023 7:08:34 AM
-FIG #half-adder.MSK
-BB(40,-142,178,55)
+        code: `VERSION 16-11-2026 23:40:00
+FIG #inverter_exp8.MSK
+BB(6,7,34,54)
 SIMU #5.00
-REC(44,25,43,25,NW)
-REC(58,-106,43,25,NW)
-REC(123,-44,43,25,NW)
-REC(44,-44,43,25,NW)
-REC(123,25,43,25,NW)
-REC(147,32,5,10,DP)
-REC(147,-37,5,10,DP)
-REC(139,32,6,10,DP)
-REC(139,-37,6,10,DP)
-REC(132,32,5,10,DP)
-REC(132,-37,5,10,DP)
-REC(82,-99,5,10,DP)
-REC(74,-99,6,10,DP)
-REC(68,32,5,10,DP)
-REC(68,-37,5,10,DP)
-REC(67,-99,5,10,DP)
-REC(60,32,6,10,DP)
-REC(60,-37,6,10,DP)
-REC(53,32,5,10,DP)
-REC(53,-37,5,10,DP)
-REC(147,7,5,10,DN)
-REC(147,-62,5,10,DN)
-REC(139,7,6,10,DN)
-REC(139,-62,6,10,DN)
-REC(132,7,5,10,DN)
-REC(132,-62,5,10,DN)
-REC(82,-124,5,10,DN)
-REC(74,-124,6,10,DN)
-REC(68,7,5,10,DN)
-REC(68,-62,5,10,DN)
-REC(67,-124,5,10,DN)
-REC(60,7,6,10,DN)
-REC(60,-62,6,10,DN)
-REC(53,7,5,10,DN)
-REC(53,-62,5,10,DN)
-REC(54,39,2,2,CO)
-REC(133,39,2,2,CO)
-REC(141,39,2,2,CO)
-REC(62,39,2,2,CO)
-REC(70,8,2,2,CO)
-REC(149,-55,2,2,CO)
-REC(133,-61,2,2,CO)
-REC(133,-55,2,2,CO)
-REC(70,14,2,2,CO)
-REC(54,8,2,2,CO)
-REC(133,14,2,2,CO)
-REC(141,8,2,2,CO)
-REC(54,14,2,2,CO)
-REC(62,8,2,2,CO)
-REC(70,33,2,2,CO)
-REC(70,39,2,2,CO)
-REC(149,33,2,2,CO)
-REC(149,39,2,2,CO)
-REC(149,8,2,2,CO)
-REC(141,-36,2,2,CO)
-REC(84,-117,2,2,CO)
-REC(76,-98,2,2,CO)
-REC(76,-117,2,2,CO)
-REC(68,-98,2,2,CO)
-REC(68,-92,2,2,CO)
-REC(76,-92,2,2,CO)
-REC(84,-123,2,2,CO)
-REC(84,-92,2,2,CO)
-REC(84,-98,2,2,CO)
-REC(76,-123,2,2,CO)
-REC(68,-117,2,2,CO)
-REC(68,-123,2,2,CO)
-REC(141,33,2,2,CO)
-REC(141,14,2,2,CO)
-REC(133,33,2,2,CO)
-REC(62,33,2,2,CO)
-REC(149,14,2,2,CO)
-REC(133,8,2,2,CO)
-REC(62,-36,2,2,CO)
-REC(62,-55,2,2,CO)
-REC(54,-36,2,2,CO)
-REC(54,33,2,2,CO)
-REC(62,14,2,2,CO)
-REC(70,-55,2,2,CO)
-REC(54,-61,2,2,CO)
-REC(54,-55,2,2,CO)
-REC(57,-9,2,2,CO)
-REC(143,-6,3,3,CO)
-REC(141,-55,2,2,CO)
-REC(133,-36,2,2,CO)
-REC(133,-30,2,2,CO)
-REC(141,-30,2,2,CO)
-REC(149,-61,2,2,CO)
-REC(149,-30,2,2,CO)
-REC(149,-36,2,2,CO)
-REC(141,-61,2,2,CO)
-REC(54,-30,2,2,CO)
-REC(62,-30,2,2,CO)
-REC(70,-61,2,2,CO)
-REC(70,-30,2,2,CO)
-REC(70,-36,2,2,CO)
-REC(62,-61,2,2,CO)
-REC(70,-75,3,3,CO)
-REC(81,-75,3,3,CO)
-REC(143,-75,3,3,CO)
-REC(160,-14,5,5,CO)
-REC(58,4,2,25,PO)
-REC(58,-65,2,55,PO)
-REC(72,-127,2,51,PO)
-REC(66,-65,2,64,PO)
-REC(66,1,2,44,PO)
-REC(159,-13,7,5,PO)
-REC(137,-15,29,2,PO)
-REC(80,-127,2,51,PO)
-REC(145,-71,2,47,PO)
-REC(145,-2,2,47,PO)
-REC(58,53,81,2,PO)
-REC(137,4,2,49,PO)
-REC(142,-7,5,5,PO)
-REC(58,31,2,22,PO)
-REC(40,29,20,2,PO)
-REC(137,-65,2,50,PO)
-REC(142,-76,5,5,PO)
-REC(56,-10,4,4,PO)
-REC(80,-76,5,5,PO)
-REC(69,-76,5,5,PO)
-REC(40,-1,28,2,PO)
-REC(132,23,34,5,ME)
-REC(67,-108,46,5,ME)
-REC(140,-62,4,10,ME)
-REC(114,-76,33,5,ME)
-REC(140,-41,4,14,ME)
-REC(61,7,4,10,ME)
-REC(119,-7,28,5,ME)
-REC(53,-46,61,5,ME)
-REC(43,-7,10,5,ME)
-REC(114,-71,5,30,ME)
-REC(69,32,4,14,ME)
-REC(159,-15,7,38,ME)
-REC(148,32,4,14,ME)
-REC(132,-46,46,5,ME)
-REC(83,-128,4,14,ME)
-REC(132,-37,4,14,ME)
-REC(53,-6,4,29,ME)
-REC(61,28,4,14,ME)
-REC(53,-10,7,4,ME)
-REC(53,-66,4,20,ME)
-REC(61,-62,4,10,ME)
-REC(140,7,4,10,ME)
-REC(148,-37,4,14,ME)
-REC(67,-128,4,20,ME)
-REC(148,3,4,14,ME)
-REC(75,-103,4,14,ME)
-REC(148,-66,4,14,ME)
-REC(53,46,20,5,ME)
-REC(53,23,66,5,ME)
-REC(114,-7,5,30,ME)
-REC(53,-23,20,5,ME)
-REC(69,-66,4,14,ME)
-REC(43,-76,42,5,ME)
-REC(69,3,4,14,ME)
-REC(132,46,20,5,ME)
-REC(83,-99,4,14,ME)
-REC(140,28,4,14,ME)
-REC(132,32,4,14,ME)
-REC(132,-23,20,5,ME)
-REC(43,-71,4,64,ME)
-REC(53,-37,4,14,ME)
-REC(132,-66,4,20,ME)
-REC(61,-41,4,14,ME)
-REC(53,32,4,14,ME)
-REC(67,-99,4,14,ME)
-REC(75,-124,4,10,ME)
-REC(67,-85,20,5,ME)
-REC(69,-37,4,14,ME)
-REC(145,32,2,10,DP)
-REC(145,-37,2,10,DP)
-REC(137,32,2,10,DP)
-REC(137,-37,2,10,DP)
-REC(80,-99,2,10,DP)
-REC(72,-99,2,10,DP)
-REC(66,32,2,10,DP)
-REC(66,-37,2,10,DP)
-REC(58,32,2,10,DP)
-REC(58,-37,2,10,DP)
-REC(145,7,2,10,DN)
-REC(145,-62,2,10,DN)
-REC(137,7,2,10,DN)
-REC(137,-62,2,10,DN)
-REC(80,-124,2,10,DN)
-REC(72,-124,2,10,DN)
-REC(66,7,2,10,DN)
-REC(66,-62,2,10,DN)
-REC(58,7,2,10,DN)
-REC(58,-62,2,10,DN)
-TITLE 72 4  #Vss
-$0 1000 0
-TITLE 49 47  #Vdd
-$1 1000 0
-TITLE 68 50  #Vdd
-$1 1000 0
-TITLE 111 -106  #C
-$v 1000 0
-TITLE 128 -22  #Vdd
-$1 1000 0
-TITLE 151 -65  #Vss
-$0 1000 0
-TITLE 151 4  #Vss
-$0 1000 0
-TITLE 128 47  #Vdd
-$1 1000 0
-TITLE 147 50  #Vdd
-$1 1000 0
-TITLE 82 -81  #Vdd
-$1 1000 0
-TITLE 86 -127  #Vss
-$0 1000 0
-TITLE 147 -19  #Vdd
-$1 1000 0
-TITLE 72 -65  #Vss
-$0 1000 0
-TITLE 49 -22  #Vdd
-$1 1000 0
-TITLE 68 -19  #Vdd
-$1 1000 0
-TITLE 173 -44  #S
-$v 1000 0
-TITLE 63 -84  #Vdd
-$1 1000 0
-TITLE 41 30  #A
-$c 1000 0 0.2250 0.2500 0.4750 0.5000
-TITLE 41 0  #B
-$c 1000 0 0.4750 0.5000 0.9750 1.0000
-TITLE 61 -142  #Half Adder circuit using CMOS Technology
-$- 1000 0
-FFIG half-adder.MSK`
+REC(6,28,28,26,NW)
+REC(12,34,6,12,DP)
+REC(20,34,6,12,DP)
+REC(12,12,6,4,DN)
+REC(20,12,6,4,DN)
+REC(14,36,2,2,CO)
+REC(14,42,2,2,CO)
+REC(22,36,2,2,CO)
+REC(22,42,2,2,CO)
+REC(14,13,2,2,CO)
+REC(22,13,2,2,CO)
+REC(18,8,2,42,PO)
+REC(12,34,5,17,ME)
+REC(12,7,5,9,ME)
+REC(21,12,5,34,ME)
+REC(18,34,2,12,DP)
+REC(18,12,2,4,DN)
+TITLE 14 50  #Vdd+
+$1 1000 0 
+TITLE 30 50  #Vdd+
+$1 1000 0 
+TITLE 14 8  #Vss-
+$0 1000 0 
+TITLE 19 25  #A
+$c 1000 0 0.2250 0.2500 0.4750 0.5000 
+TITLE 25 25  #Y
+$v 1000 0 
+FFIG inverter_exp8.MSK`
       },
       {
         filename: "cmos_inverter.msk",
@@ -1359,29 +1152,33 @@ FFIG inverter_6_1_2_1.MSK`
       {
         filename: "inverter_microwind_notes.txt",
         language: "text",
-        code: `EXPERIMENT 8: INVERTER USING MICROWIND
+        code: `EXPERIMENT 8: INVERTER USING MICROWIND (from VLSI Inverter.pdf)
 
-AIM: To simulate CMOS Inverter using Microwind software.
-TOOLS: Microwind, DSch.
+AIM: To design, lay out, and simulate a CMOS Inverter using Microwind software.
+TOOLS: Microwind 3.x, Foundry: cmos012.rul (120 nm technology).
 
-TRANSISTOR SPECIFICATIONS:
-- PMOS (6:1 Aspect Ratio):
-  * W/L = 12 lambda / 2 lambda = 6 : 1
-  * 2 Source Contacts to VDD, 2 Drain Contacts to Out (Y)
-- NMOS (2:1 Aspect Ratio):
-  * W/L = 4 lambda / 2 lambda = 2 : 1
-  * 1 Source Contact to VSS, 1 Drain Contact to Out (Y)
+SPECIFICATIONS & OPERATING PARAMETERS:
+- Supply Voltage (VDD): 1.20 V
+- Ground Voltage (VSS): 0.00 V
+- PMOS Transistor (Pull-Up):
+  * Aspect Ratio: W/L = 12 lambda / 2 lambda = 6 : 1
+  * 2 Source contacts connected to VDD+, 2 Drain contacts to Output Y
+- NMOS Transistor (Pull-Down):
+  * Aspect Ratio: W/L = 4 lambda / 2 lambda = 2 : 1
+  * 1 Source contact connected to VSS-, 1 Drain contact to Output Y
 
-LAYOUT PIN CONFIGURATION:
-- VDD+ : Top-left Metal-1 (Supply 1)
-- VSS- : Bottom-left Metal-1 (Ground 0)
-- clock2 : Polysilicon input gate (Clock stimulus)
-- Y : Right vertical Metal-1 (Visible output voltage node)
+SIMULATION OUTPUT PARAMETERS (from VLSI Inverter.pdf):
+- Input Stimulus: Pulse signal 'A' (0.0 V to 1.20 V) applied to Polysilicon gate.
+- Output Signal: 'Y' (1.20 V to 0.0 V, clean inverted waveform).
+- Power Dissipation: P = 2.300 uW.
+- Step Size: 0.300 ps, Time Scale: 5 ns.
+- Propagation Delay: ~4 ps to 9 ps.
 
-STEPS IN MICROWIND:
-1. Select Technology Rule file: File -> Select Foundry -> cmos012.rul (120nm).
-2. Open File -> Open -> select inverter_6_1_2_1.msk.
-3. Click Simulate -> Run Simulation (or press F12) to observe transient waveforms and VTC.`
+HOW TO RUN IN MICROWIND:
+1. Open Microwind -> File -> Select Foundry -> cmos012.rul.
+2. File -> Open -> select inverter_exp8.msk.
+3. Click Simulate -> Run Simulation (or press F12).
+4. Verify transient waveform Output Y vs Input A and Voltage vs Voltage (VTC).`
       }
     ]
   },
