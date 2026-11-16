@@ -1018,7 +1018,7 @@ end Behavioral;`
   {
     id: "vlsi-exp8",
     title: "Exp 8: CMOS Inverter using Microwind",
-    file: "inverter_exp8.msk",
+    file: "8_inverter.msk",
     category: "Microwind Layout & Simulation",
     description: "Design, layout, and simulation of CMOS Inverter in Microwind. W:L Ratio -> PMOS: 0.6:0.1 | NMOS: 0.2:0.1.",
     aspectRatio: {

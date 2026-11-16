@@ -23,6 +23,35 @@ function LabView({ category }) {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
+  const handleDownload = (filename, code) => {
+    const staticFiles = [
+      '8_inverter.msk',
+      '9(1)_nand.msk',
+      '9(2)_nor.msk',
+      '10_boolean.msk',
+      'half_adder.msk'
+    ];
+    if (staticFiles.includes(filename)) {
+      const a = document.createElement('a');
+      a.href = `/downloads/${filename}`;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return;
+    }
+
+    const blob = new Blob([code], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div style={{ display: 'flex', flex: 1, minHeight: 0, minWidth: 0 }}>
       {/* Left Sidebar */}
@@ -198,6 +227,35 @@ function LabView({ category }) {
                 >
                   <strong>NMOS:</strong> {currentExp.aspectRatio.nmos}
                 </span>
+
+                {currentExp.codeFiles?.some((f) => f.filename.toLowerCase().endsWith('.msk')) && (
+                  <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    {currentExp.codeFiles
+                      .filter((f) => f.filename.toLowerCase().endsWith('.msk'))
+                      .map((f) => (
+                        <button
+                          key={f.filename}
+                          onClick={() => handleDownload(f.filename, f.code)}
+                          style={{
+                            background: '#2563eb',
+                            color: '#ffffff',
+                            border: 'none',
+                            padding: '5px 12px',
+                            borderRadius: '5px',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            boxShadow: '0 1px 2px rgba(37,99,235,0.2)'
+                          }}
+                        >
+                          ⬇ Download {f.filename}
+                        </button>
+                      ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -278,26 +336,48 @@ function LabView({ category }) {
                           </span>
                         </div>
 
-                        {/* Top Copy Button */}
-                        <button
-                          onClick={() => handleCopy(file.code, copyKey)}
-                          style={{
-                            background: isCopied ? '#15803d' : '#0f172a',
-                            color: '#ffffff',
-                            border: 'none',
-                            padding: '6px 14px',
-                            borderRadius: '5px',
-                            fontSize: '12.5px',
-                            fontWeight: 500,
-                            cursor: 'pointer',
-                            transition: 'background 0.15s ease',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          {isCopied ? '✓ Copied' : `Copy ${file.filename}`}
-                        </button>
+                        {/* Top Action Buttons (Download & Copy) */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <button
+                            onClick={() => handleDownload(file.filename, file.code)}
+                            style={{
+                              background: file.filename.toLowerCase().endsWith('.msk') ? '#2563eb' : '#f1f5f9',
+                              color: file.filename.toLowerCase().endsWith('.msk') ? '#ffffff' : '#0f172a',
+                              border: file.filename.toLowerCase().endsWith('.msk') ? 'none' : '1px solid #cbd5e1',
+                              padding: '6px 12px',
+                              borderRadius: '5px',
+                              fontSize: '12px',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '4px'
+                            }}
+                            title={`Download ${file.filename}`}
+                          >
+                            ⬇ Download{file.filename.toLowerCase().endsWith('.msk') ? ' .MSK' : ''}
+                          </button>
+
+                          <button
+                            onClick={() => handleCopy(file.code, copyKey)}
+                            style={{
+                              background: isCopied ? '#15803d' : '#0f172a',
+                              color: '#ffffff',
+                              border: 'none',
+                              padding: '6px 14px',
+                              borderRadius: '5px',
+                              fontSize: '12px',
+                              fontWeight: 500,
+                              cursor: 'pointer',
+                              transition: 'background 0.15s ease',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '4px'
+                            }}
+                          >
+                            {isCopied ? '✓ Copied' : 'Copy'}
+                          </button>
+                        </div>
                       </div>
 
                       {/* Code Content */}

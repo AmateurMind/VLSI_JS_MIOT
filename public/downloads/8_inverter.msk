@@ -1,0 +1,36 @@
+VERSION 16-11-2026 22:17:45
+FIG #C:\Users\suhai\Downloads\microwind3 lite\microwind3 lite\Su\8 inverter.MSK
+BB(21,-7,45,46)
+SIMU #5.00
+REC(21,19,24,22,NW)
+REC(34,25,5,10,DP)
+REC(27,25,5,10,DP)
+REC(34,-3,5,10,DN)
+REC(27,-3,5,10,DN)
+REC(36,-2,2,2,CO)
+REC(36,4,2,2,CO)
+REC(36,32,2,2,CO)
+REC(28,4,2,2,CO)
+REC(28,26,2,2,CO)
+REC(28,-2,2,2,CO)
+REC(28,32,2,2,CO)
+REC(36,26,2,2,CO)
+REC(32,-6,2,44,PO)
+REC(35,-3,4,38,ME)
+REC(27,-7,4,14,ME)
+REC(27,25,4,14,ME)
+REC(32,25,2,10,DP)
+REC(32,-3,2,10,DN)
+TITLE 42 37  #Vdd
+$1 1000 0 
+TITLE 28 37  #Vdd
+$1 1000 0 
+TITLE 29 -6  #Vss
+$0 1000 0 
+TITLE 33 14  #A
+$c 1000 0 0.2250 0.2500 0.4750 0.5000 
+TITLE 37 13  #Y
+$v 1000 0 
+TITLE 24 46  #8 INVERTER
+$- 1000 0 
+FFIG C:\Users\suhai\Downloads\microwind3 lite\microwind3 lite\Su\8 inverter.MSK
