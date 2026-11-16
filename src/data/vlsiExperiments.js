@@ -1042,6 +1042,40 @@ end Behavioral;`
     ],
     codeFiles: [
       {
+        filename: "inverter_6_1_2_1.msk",
+        language: "text",
+        code: `VERSION 16-11-2026 19:30:00
+FIG #inverter_6_1_2_1.MSK
+BB(6,7,32,54)
+SIMU #5.00
+REC(6,28,26,26,NW)
+REC(12,34,6,12,DP)
+REC(20,34,6,12,DP)
+REC(12,12,6,4,DN)
+REC(20,12,6,4,DN)
+REC(14,36,2,2,CO)
+REC(14,42,2,2,CO)
+REC(22,36,2,2,CO)
+REC(22,42,2,2,CO)
+REC(14,13,2,2,CO)
+REC(22,13,2,2,CO)
+REC(18,8,2,42,PO)
+REC(12,34,5,17,ME)
+REC(12,7,5,9,ME)
+REC(21,12,5,34,ME)
+REC(18,34,2,12,DP)
+REC(18,12,2,4,DN)
+TITLE 14 50  #Vdd+
+$1 1000 0 
+TITLE 14 8  #Vss-
+$0 1000 0 
+TITLE 19 25  #clock2
+$c 1000 0 0.4750 0.5000 0.9750 1.0000 
+TITLE 25 25  #Y
+$v 1000 0 
+FFIG inverter_6_1_2_1.MSK`
+      },
+      {
         filename: "inverter_microwind_notes.txt",
         language: "text",
         code: `EXPERIMENT 8: INVERTER USING MICROWIND
@@ -1050,17 +1084,23 @@ AIM: To simulate CMOS Inverter using Microwind software.
 TOOLS: Microwind, DSch.
 
 TRANSISTOR SPECIFICATIONS:
-- PMOS: W = 1.2 um, L = 0.12 um (Connected between VDD and Out)
-- NMOS: W = 0.6 um, L = 0.12 um (Connected between Out and VSS)
+- PMOS (6:1 Aspect Ratio):
+  * W/L = 12 lambda / 2 lambda = 6 : 1
+  * 2 Source Contacts to VDD, 2 Drain Contacts to Out (Y)
+- NMOS (2:1 Aspect Ratio):
+  * W/L = 4 lambda / 2 lambda = 2 : 1
+  * 1 Source Contact to VSS, 1 Drain Contact to Out (Y)
+
+LAYOUT PIN CONFIGURATION:
+- VDD+ : Top-left Metal-1 (Supply 1)
+- VSS- : Bottom-left Metal-1 (Ground 0)
+- clock2 : Polysilicon input gate (Clock stimulus)
+- Y : Right vertical Metal-1 (Visible output voltage node)
 
 STEPS IN MICROWIND:
 1. Select Technology Rule file: File -> Select Foundry -> cmos012.rul (120nm).
-2. Draw N-Well for PMOS region.
-3. Draw P-diffusion for PMOS and N-diffusion for NMOS.
-4. Draw Polysilicon gate overlapping the diffusion regions to form transistors.
-5. Add Metal-1 contacts to VDD, VSS, Input, and Output.
-6. Connect clock/pulse generator to the Input (Vin).
-7. Run Simulation (Simulate -> Run Simulation) to observe Voltage vs Time and VTC (Voltage Transfer Characteristic).`
+2. Open File -> Open -> select inverter_6_1_2_1.msk.
+3. Click Simulate -> Run Simulation (or press F12) to observe transient waveforms and VTC.`
       }
     ]
   },
