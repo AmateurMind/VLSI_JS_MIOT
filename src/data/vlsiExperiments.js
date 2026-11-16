@@ -1084,13 +1084,13 @@ FFIG inverter_exp8.MSK`
     title: "Exp 9: NAND and NOR using Microwind",
     file: "nand_nor_microwind",
     category: "Microwind Layout & Simulation",
-    description: "Design and simulation of 2-input CMOS NAND and NOR gates using 4 fingers in Microwind. W:L Ratio -> PMOS: 6:1 | NMOS: 2:1.",
+    description: "Design and simulation of 2-input CMOS NAND and NOR gates using 4 fingers in Microwind. W:L Ratio -> PMOS: 0.6:0.1 | NMOS: 0.6:0.1.",
     aspectRatio: {
       fingers: "4 fingers",
-      pmos: "6:1 (W:L)",
-      nmos: "2:1 (W:L)"
+      pmos: "0.6:0.1 (W:L)",
+      nmos: "0.6:0.1 (W:L)"
     },
-    tags: ["Microwind", "NAND", "NOR", "4 fingers", "PMOS 6:1", "NMOS 2:1", "Layout"],
+    tags: ["Microwind", "NAND", "NOR", "4 fingers", "PMOS 0.6:0.1", "NMOS 0.6:0.1", "Layout"],
     images: [
       {
         caption: "2-Input CMOS NAND Gate Layout",
