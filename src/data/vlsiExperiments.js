@@ -1018,10 +1018,14 @@ end Behavioral;`
   {
     id: "vlsi-exp8",
     title: "Exp 8: CMOS Inverter using Microwind",
-    file: "inverter_microwind.cir",
+    file: "inverter_exp8.msk",
     category: "Microwind Layout & Simulation",
-    description: "Design, layout, and simulation of CMOS Inverter (PMOS 6:1, NMOS 2:1) from official VLSI Inverter lab document, showing input pulse A, inverted output Y, and timing waveforms.",
-    tags: ["Microwind", "CMOS Inverter", "VTC", "Layout", "Simulation", "VLSI Inverter"],
+    description: "Design, layout, and simulation of CMOS Inverter in Microwind. W:L Ratio -> PMOS: 0.6:0.1 | NMOS: 0.2:0.1.",
+    aspectRatio: {
+      pmos: "0.6:0.1 (W:L)",
+      nmos: "0.2:0.1 (W:L)"
+    },
+    tags: ["Microwind", "CMOS Inverter", "W:L 0.6:0.1 / 0.2:0.1", "Layout", "Simulation", "VLSI Inverter"],
     images: [
       {
         caption: "CMOS Inverter Layout in Microwind (from VLSI Inverter.pdf)",
@@ -1072,123 +1076,21 @@ $c 1000 0 0.2250 0.2500 0.4750 0.5000
 TITLE 25 25  #Y
 $v 1000 0 
 FFIG inverter_exp8.MSK`
-      },
-      {
-        filename: "cmos_inverter.msk",
-        language: "text",
-        code: `VERSION 8/14/2023 8:58:16 AM
-FIG #cmos-inverter.MSK
-BB(42,-14,85,39)
-SIMU #5.00
-REC(50,17,24,22,NW)
-REC(63,23,5,10,DP)
-REC(56,23,5,10,DP)
-REC(63,-4,5,10,DN)
-REC(56,-4,5,10,DN)
-REC(65,3,2,2,CO)
-REC(65,-3,2,2,CO)
-REC(65,30,2,2,CO)
-REC(57,3,2,2,CO)
-REC(57,24,2,2,CO)
-REC(57,-3,2,2,CO)
-REC(57,30,2,2,CO)
-REC(65,24,2,2,CO)
-REC(61,-7,2,43,PO)
-REC(42,12,19,2,PO)
-REC(56,23,4,14,ME)
-REC(64,-4,4,37,ME)
-REC(68,10,17,5,ME)
-REC(56,-8,4,14,ME)
-REC(61,23,2,10,DP)
-REC(61,-4,2,10,DN)
-TITLE 58 -7  #Vss
-$0 1000 0 
-TITLE 57 36  #Vdd
-$1 1000 0 
-TITLE 72 37  #Vdd
-$1 1000 0 
-TITLE 43 13  #Clock
-$c 1000 0 0.4750 0.5000 0.9750 1.0000 
-TITLE 84 13  #Output
-$v 1000 0 
-TITLE 55 -14  #CMOS INVERTER
-$- 1000 0 
-FFIG cmos-inverter.MSK`
-      },
-      {
-        filename: "inverter_6_1_2_1.msk",
-        language: "text",
-        code: `VERSION 16-11-2026 19:30:00
-FIG #inverter_6_1_2_1.MSK
-BB(6,7,32,54)
-SIMU #5.00
-REC(6,28,26,26,NW)
-REC(12,34,6,12,DP)
-REC(20,34,6,12,DP)
-REC(12,12,6,4,DN)
-REC(20,12,6,4,DN)
-REC(14,36,2,2,CO)
-REC(14,42,2,2,CO)
-REC(22,36,2,2,CO)
-REC(22,42,2,2,CO)
-REC(14,13,2,2,CO)
-REC(22,13,2,2,CO)
-REC(18,8,2,42,PO)
-REC(12,34,5,17,ME)
-REC(12,7,5,9,ME)
-REC(21,12,5,34,ME)
-REC(18,34,2,12,DP)
-REC(18,12,2,4,DN)
-TITLE 14 50  #Vdd+
-$1 1000 0 
-TITLE 14 8  #Vss-
-$0 1000 0 
-TITLE 19 25  #clock2
-$c 1000 0 0.4750 0.5000 0.9750 1.0000 
-TITLE 25 25  #Y
-$v 1000 0 
-FFIG inverter_6_1_2_1.MSK`
-      },
-      {
-        filename: "inverter_microwind_notes.txt",
-        language: "text",
-        code: `EXPERIMENT 8: INVERTER USING MICROWIND (from VLSI Inverter.pdf)
-
-AIM: To design, lay out, and simulate a CMOS Inverter using Microwind software.
-TOOLS: Microwind 3.x, Foundry: cmos012.rul (120 nm technology).
-
-SPECIFICATIONS & OPERATING PARAMETERS:
-- Supply Voltage (VDD): 1.20 V
-- Ground Voltage (VSS): 0.00 V
-- PMOS Transistor (Pull-Up):
-  * Aspect Ratio: W/L = 12 lambda / 2 lambda = 6 : 1
-  * 2 Source contacts connected to VDD+, 2 Drain contacts to Output Y
-- NMOS Transistor (Pull-Down):
-  * Aspect Ratio: W/L = 4 lambda / 2 lambda = 2 : 1
-  * 1 Source contact connected to VSS-, 1 Drain contact to Output Y
-
-SIMULATION OUTPUT PARAMETERS (from VLSI Inverter.pdf):
-- Input Stimulus: Pulse signal 'A' (0.0 V to 1.20 V) applied to Polysilicon gate.
-- Output Signal: 'Y' (1.20 V to 0.0 V, clean inverted waveform).
-- Power Dissipation: P = 2.300 uW.
-- Step Size: 0.300 ps, Time Scale: 5 ns.
-- Propagation Delay: ~4 ps to 9 ps.
-
-HOW TO RUN IN MICROWIND:
-1. Open Microwind -> File -> Select Foundry -> cmos012.rul.
-2. File -> Open -> select inverter_exp8.msk.
-3. Click Simulate -> Run Simulation (or press F12).
-4. Verify transient waveform Output Y vs Input A and Voltage vs Voltage (VTC).`
       }
     ]
   },
   {
     id: "vlsi-exp9",
     title: "Exp 9: NAND and NOR using Microwind",
-    file: "nand_nor_microwind.cir",
+    file: "nand_nor_microwind",
     category: "Microwind Layout & Simulation",
-    description: "Design and simulation of 2-input CMOS NAND (series NMOS, parallel PMOS) and NOR (parallel NMOS, series PMOS) gates with timing waveforms.",
-    tags: ["Microwind", "NAND", "NOR", "CMOS", "Layout"],
+    description: "Design and simulation of 2-input CMOS NAND and NOR gates using 4 fingers in Microwind. W:L Ratio -> PMOS: 6:1 | NMOS: 2:1.",
+    aspectRatio: {
+      fingers: "4 fingers",
+      pmos: "6:1 (W:L)",
+      nmos: "2:1 (W:L)"
+    },
+    tags: ["Microwind", "NAND", "NOR", "4 fingers", "PMOS 6:1", "NMOS 2:1", "Layout"],
     images: [
       {
         caption: "2-Input CMOS NAND Gate Layout",
@@ -1207,78 +1109,39 @@ HOW TO RUN IN MICROWIND:
         src: "/images/vlsi/exp9_nand_nor_p2_2.png"
       }
     ],
-    codeFiles: [
-      {
-        filename: "nand_nor_microwind_notes.txt",
-        language: "text",
-        code: `EXPERIMENT 9: NAND AND NOR USING MICROWIND
-
-AIM: To simulate NAND and NOR gates using Microwind software.
-
-1. NAND GATE CONFIGURATION:
-- Pull-Up Network (PUN): 2 PMOS transistors in PARALLEL connected to VDD.
-- Pull-Down Network (PDN): 2 NMOS transistors in SERIES connected to VSS.
-- Logic Expression: Y = (A . B)'
-
-2. NOR GATE CONFIGURATION:
-- Pull-Up Network (PUN): 2 PMOS transistors in SERIES connected to VDD.
-- Pull-Down Network (PDN): 2 NMOS transistors in PARALLEL connected to VSS.
-- Logic Expression: Y = (A + B)'
-
-SIMULATION PROCEDURE:
-1. Design schematic in DSch or layout directly in Microwind.
-2. Apply Clock A with period T1 and Clock B with period 2*T1.
-3. Verify truth tables from output transient waveforms.`
-      }
-    ]
+    codeFiles: []
   },
   {
     id: "vlsi-exp10",
     title: "Exp 10: Boolean Expression Y = (AB + CD)' using Microwind",
-    file: "boolean_expression_microwind.cir",
+    file: "boolean_expression_microwind",
     category: "Microwind Layout & Simulation",
-    description: "Complex CMOS logic gate realization for the Boolean function Y = (AB + CD)' with schematic, full layout, and simulation timing diagrams.",
-    tags: ["Microwind", "Boolean Expression", "CMOS Logic", "AOI"],
+    description: "CMOS layout and simulation for Boolean Expression Y = (AB + CD)' using 4 fingers in Microwind. W:L Ratio -> PMOS: 1.2:0.1 | NMOS: 2:1.",
+    aspectRatio: {
+      fingers: "4 fingers",
+      pmos: "1.2:0.1 (W:L)",
+      nmos: "2:1 (W:L)"
+    },
+    tags: ["Microwind", "AOI", "Boolean Expression", "4 fingers", "PMOS 1.2:0.1", "NMOS 2:1", "Layout"],
     images: [
       {
-        caption: "Circuit Diagram and CMOS Layout for Y = (AB + CD)'",
+        caption: "Boolean Expression Layout - Page 1",
         src: "/images/vlsi/exp10_boolean_p1_1.png"
       },
       {
-        caption: "Simulation Waveforms for Y = (AB + CD)'",
+        caption: "Boolean Expression Layout & Simulation - Page 2",
         src: "/images/vlsi/exp10_boolean_p2_1.png"
       }
     ],
-    codeFiles: [
-      {
-        filename: "boolean_expression_notes.txt",
-        language: "text",
-        code: `EXPERIMENT 10: BOOLEAN EXPRESSION USING MICROWIND
-AIM: To simulate Boolean Expression Y = (AB + CD)' using Microwind software.
-
-CIRCUIT DESIGN (AND-OR-INVERT / AOI):
-- Pull-Down Network (PDN):
-  * Branch 1: NMOS A in series with NMOS B.
-  * Branch 2: NMOS C in series with NMOS D.
-  * Branch 1 and Branch 2 are in PARALLEL between Output node and Ground.
-- Pull-Up Network (PUN):
-  * PMOS A in parallel with PMOS B.
-  * PMOS C in parallel with PMOS D.
-  * The (A || B) group is in SERIES with the (C || D) group between VDD and Output.
-
-TRUTH TABLE:
-Output Y is LOW ('0') only when (A=1 AND B=1) OR (C=1 AND D=1).
-For all other input combinations, Y = '1'.`
-      }
-    ]
+    codeFiles: []
   },
   {
     id: "vlsi-exp11",
     title: "Exp 11: Half Adder using Microwind",
-    file: "half_adder_microwind.cir",
+    file: "half_adder.msk",
     category: "Microwind Layout & Simulation",
     description: "CMOS layout and simulation of Half Adder circuit generating Sum (A XOR B) and Carry (A AND B) outputs in Microwind.",
-    tags: ["Microwind", "Half Adder", "CMOS Layout", "Simulation"],
+    tags: ["Microwind", "Half Adder", "CMOS Layout", "Simulation", "MSK"],
     images: [
       {
         caption: "CMOS Half Adder Layout in Microwind",
@@ -1528,36 +1391,15 @@ $c 1000 0 0.4750 0.5000 0.9750 1.0000
 TITLE 61 -142  #Half Adder circuit using CMOS Technology
 $- 1000 0
 FFIG half-adder.MSK`
-      },
-      {
-        filename: "half_adder_microwind_notes.txt",
-        language: "text",
-        code: `EXPERIMENT 11: HALF ADDER USING MICROWIND
-AIM: To simulate Half Adder using Microwind software.
-
-OUTPUT FUNCTIONS:
-- Sum = A XOR B = A'.B + A.B'
-- Carry = A AND B
-
-STEPS:
-1. Construct CMOS XOR gate for the Sum output.
-2. Construct CMOS AND gate (NAND followed by Inverter) for the Carry output.
-3. Interconnect inputs A and B to both blocks.
-4. Apply independent clock sources to A and B.
-5. Simulate and observe Sum and Carry traces verifying:
-   * A=0, B=0 -> Sum=0, Carry=0
-   * A=0, B=1 -> Sum=1, Carry=0
-   * A=1, B=0 -> Sum=1, Carry=0
-   * A=1, B=1 -> Sum=0, Carry=1`
       }
     ]
   },
   {
     id: "vlsi-exp12",
     title: "Exp 12: 2:1 MUX using Microwind",
-    file: "mux2to1_microwind.cir",
+    file: "mux2to1_microwind",
     category: "Microwind Layout & Simulation",
-    description: "Layout design and simulation of 2:1 Multiplexer using both Conventional CMOS logic and Transmission Gate (TG) configurations.",
+    description: "Layout design and simulation of 2:1 Multiplexer using both Conventional CMOS logic and Transmission Gate (TG) configurations in Microwind.",
     tags: ["Microwind", "2:1 MUX", "Transmission Gate", "Layout", "Simulation"],
     images: [
       {
@@ -1565,7 +1407,7 @@ STEPS:
         src: "/images/vlsi/exp12_mux2to1_p1_1.png"
       },
       {
-        caption: "2:1 MUX Conventional Method Waveform",
+        caption: "2:1 MUX Conventional Method Output Waveforms",
         src: "/images/vlsi/exp12_mux2to1_p1_2.png"
       },
       {
@@ -1573,33 +1415,14 @@ STEPS:
         src: "/images/vlsi/exp12_mux2to1_p2_1.png"
       },
       {
-        caption: "2:1 MUX TG Simulation Waveforms",
+        caption: "2:1 MUX Transmission Gate Output Waveforms",
         src: "/images/vlsi/exp12_mux2to1_p2_2.png"
       },
       {
-        caption: "2:1 MUX Detailed TG Timing Analysis",
+        caption: "2:1 MUX Detailed Comparison / Layout Overview",
         src: "/images/vlsi/exp12_mux2to1_p2_3.png"
       }
     ],
-    codeFiles: [
-      {
-        filename: "mux2to1_microwind_notes.txt",
-        language: "text",
-        code: `EXPERIMENT 12: 2:1 MUX USING MICROWIND
-AIM: To simulate 2:1 MUX using Microwind software.
-
-METHOD 1: CONVENTIONAL CMOS METHOD
-- Expression: Y = (S'.I0 + S.I1)
-- Realized with CMOS Inverters, NAND and NOR gates.
-
-METHOD 2: TRANSMISSION GATE (TG) METHOD
-- A Transmission Gate (TG) is a complementary CMOS switch where NMOS and PMOS are in parallel.
-- Controlled by complementary control signals (S and S_bar).
-- High transmission quality without threshold voltage drop (Vth).
-- TG 1 passes I0 when S = 0.
-- TG 2 passes I1 when S = 1.
-- Output Y connects to the common output node.`
-      }
-    ]
+    codeFiles: []
   }
 ];

@@ -144,6 +144,63 @@ function LabView({ category }) {
               </p>
             </div>
 
+            {/* Transistor Aspect Ratio Banner if specified */}
+            {currentExp.aspectRatio && (
+              <div
+                style={{
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '8px',
+                  padding: '10px 16px',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  flexWrap: 'wrap'
+                }}
+              >
+                <span style={{ fontWeight: 600, fontSize: '13px', color: '#0f172a' }}>
+                  📐 Transistor Aspect Ratio (W:L):
+                </span>
+                {currentExp.aspectRatio.fingers && (
+                  <span
+                    style={{
+                      background: '#e0f2fe',
+                      color: '#0369a1',
+                      padding: '2px 8px',
+                      borderRadius: '4px',
+                      fontSize: '12px',
+                      fontWeight: 600
+                    }}
+                  >
+                    {currentExp.aspectRatio.fingers}
+                  </span>
+                )}
+                <span
+                  style={{
+                    background: '#f1f5f9',
+                    color: '#334155',
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    fontSize: '12px'
+                  }}
+                >
+                  <strong>PMOS:</strong> {currentExp.aspectRatio.pmos}
+                </span>
+                <span
+                  style={{
+                    background: '#f1f5f9',
+                    color: '#334155',
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    fontSize: '12px'
+                  }}
+                >
+                  <strong>NMOS:</strong> {currentExp.aspectRatio.nmos}
+                </span>
+              </div>
+            )}
+
             {/* If Exp is skipped / not there (e.g. Exp 7 in JS) */}
             {currentExp.isSkipped ? (
               <div
@@ -165,7 +222,8 @@ function LabView({ category }) {
               </div>
             ) : (
               /* Files Layout: 2 Columns for multi-file (Exp 10 in JS or VHDL Design+TB), 1 Column for single file */
-              <div
+              currentExp.codeFiles && currentExp.codeFiles.length > 0 ? (
+                <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: isMultiColumn ? '1fr 1fr' : '1fr',
@@ -259,7 +317,8 @@ function LabView({ category }) {
                     </div>
                   );
                 })}
-              </div>
+                </div>
+              ) : null
             )}
 
             {/* Microwind & Waveforms Image Gallery (if experiment has images) */}
