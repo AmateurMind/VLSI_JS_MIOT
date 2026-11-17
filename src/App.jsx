@@ -468,6 +468,128 @@ function LabView({ category }) {
               ) : null
             )}
 
+            {/* Circuit Diagrams Section (if available) */}
+            {currentExp.circuits && currentExp.circuits.length > 0 && (
+              <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>⚡</span> Circuit Diagram{currentExp.circuits.length > 1 ? 's' : ''}
+                </h3>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: currentExp.circuits.length === 1 ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '16px'
+                  }}
+                >
+                  {currentExp.circuits.map((circ, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '8px',
+                        padding: '14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '10px',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.02)'
+                      }}
+                    >
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#0f172a' }}>
+                        {circ.caption}
+                      </div>
+                      <div style={{ background: '#ffffff', borderRadius: '6px', overflow: 'hidden', border: '1px solid #f1f5f9', display: 'flex', justifyContent: 'center', padding: '10px' }}>
+                        <img
+                          src={circ.src}
+                          alt={circ.caption}
+                          style={{
+                            maxWidth: '100%',
+                            maxHeight: '420px',
+                            objectFit: 'contain',
+                            display: 'block'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Truth Tables Section (if available) */}
+            {currentExp.truthTables && currentExp.truthTables.length > 0 && (
+              <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>📋</span> Truth Table{currentExp.truthTables.length > 1 ? 's' : ''}
+                </h3>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: currentExp.truthTables.length === 1 ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '16px',
+                    alignItems: 'start'
+                  }}
+                >
+                  {currentExp.truthTables.map((table, tIdx) => (
+                    <div
+                      key={tIdx}
+                      style={{
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.02)'
+                      }}
+                    >
+                      {table.title && (
+                        <div style={{ padding: '10px 14px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', fontWeight: 600, fontSize: '13px', color: '#0f172a' }}>
+                          {table.title}
+                        </div>
+                      )}
+                      <div style={{ overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'center' }}>
+                          <thead>
+                            <tr style={{ background: '#f1f5f9', borderBottom: '1px solid #cbd5e1' }}>
+                              {table.headers.map((h, hIdx) => (
+                                <th key={hIdx} style={{ padding: '8px 12px', fontWeight: 700, color: '#334155' }}>
+                                  {h}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {table.rows.map((row, rIdx) => (
+                              <tr
+                                key={rIdx}
+                                style={{
+                                  background: rIdx % 2 === 0 ? '#ffffff' : '#f8fafc',
+                                  borderBottom: rIdx === table.rows.length - 1 ? 'none' : '1px solid #f1f5f9'
+                                }}
+                              >
+                                {row.map((cell, cIdx) => (
+                                  <td
+                                    key={cIdx}
+                                    style={{
+                                      padding: '7px 12px',
+                                      color: '#1e293b',
+                                      fontFamily: typeof cell === 'string' && /^[01]$/.test(cell.trim()) ? 'monospace' : 'inherit',
+                                      fontWeight: typeof cell === 'string' && /^[01]$/.test(cell.trim()) ? 600 : 400
+                                    }}
+                                  >
+                                    {cell}
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Microwind & Waveforms Image Gallery (if experiment has images) */}
             {currentExp.images && currentExp.images.length > 0 && (
               <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '12px' }}>

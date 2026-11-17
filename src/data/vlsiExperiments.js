@@ -1026,6 +1026,22 @@ end Behavioral;`
       nmos: "0.2:0.1 (W:L)"
     },
     tags: ["Microwind", "CMOS Inverter", "W:L 0.6:0.1 / 0.2:0.1", "Layout", "Simulation", "VLSI Inverter"],
+    circuits: [
+      {
+        caption: "CMOS Inverter Circuit Diagram",
+        src: "/images/vlsi/exp8_inverter_circuit.png"
+      }
+    ],
+    truthTables: [
+      {
+        title: "CMOS Inverter Truth Table",
+        headers: ["Vin (Input)", "Vout (Output)"],
+        rows: [
+          ["0", "1"],
+          ["1", "0"]
+        ]
+      }
+    ],
     images: [
       {
         caption: "CMOS Inverter Layout in Microwind (from VLSI Inverter.pdf)",
@@ -1095,6 +1111,38 @@ FFIG 8_inverter.MSK`
       nmos: "0.6:0.1 (W:L)"
     },
     tags: ["Microwind", "NAND", "NOR", "4 fingers", "PMOS 0.6:0.1", "NMOS 0.6:0.1", "Layout"],
+    circuits: [
+      {
+        caption: "2-Input CMOS NAND Gate Circuit Diagram",
+        src: "/images/vlsi/exp9_nand_circuit.png"
+      },
+      {
+        caption: "2-Input CMOS NOR Gate Circuit Diagram",
+        src: "/images/vlsi/exp9_nor_circuit.png"
+      }
+    ],
+    truthTables: [
+      {
+        title: "NAND Gate Truth Table: Y = (A · B)'",
+        headers: ["A", "B", "Y = (A·B)'"],
+        rows: [
+          ["0", "0", "1"],
+          ["0", "1", "1"],
+          ["1", "0", "1"],
+          ["1", "1", "0"]
+        ]
+      },
+      {
+        title: "NOR Gate Truth Table: Y = (A + B)'",
+        headers: ["A", "B", "Y = (A+B)'"],
+        rows: [
+          ["0", "0", "1"],
+          ["0", "1", "0"],
+          ["1", "0", "0"],
+          ["1", "1", "0"]
+        ]
+      }
+    ],
     images: [
       {
         caption: "2-Input CMOS NAND Gate Layout",
@@ -1237,6 +1285,36 @@ FFIG 9(2)_NOR.MSK`
       nmos: "0.2:0.1 (W:L)"
     },
     tags: ["Microwind", "AOI", "Boolean Expression", "4 fingers", "PMOS 1.2:0.1", "NMOS 2:1", "Layout"],
+    circuits: [
+      {
+        caption: "CMOS AOI22 Complex Logic Circuit Diagram: Y = (AB + CD)'",
+        src: "/images/vlsi/exp10_boolean_circuit.png"
+      }
+    ],
+    truthTables: [
+      {
+        title: "AOI22 Boolean Expression Truth Table: Y = (AB + CD)'",
+        headers: ["A", "B", "C", "D", "AB", "CD", "AB+CD", "Y = (AB+CD)'"],
+        rows: [
+          ["0", "0", "0", "0", "0", "0", "0", "1"],
+          ["0", "0", "0", "1", "0", "0", "0", "1"],
+          ["0", "0", "1", "0", "0", "0", "0", "1"],
+          ["0", "0", "1", "1", "0", "1", "1", "0"],
+          ["0", "1", "0", "0", "0", "0", "0", "1"],
+          ["0", "1", "0", "1", "0", "0", "0", "1"],
+          ["0", "1", "1", "0", "0", "0", "0", "1"],
+          ["0", "1", "1", "1", "0", "1", "1", "0"],
+          ["1", "0", "0", "0", "0", "0", "0", "1"],
+          ["1", "0", "0", "1", "0", "0", "0", "1"],
+          ["1", "0", "1", "0", "0", "0", "0", "1"],
+          ["1", "0", "1", "1", "0", "1", "1", "0"],
+          ["1", "1", "0", "0", "1", "0", "1", "0"],
+          ["1", "1", "0", "1", "1", "0", "1", "0"],
+          ["1", "1", "1", "0", "1", "0", "1", "0"],
+          ["1", "1", "1", "1", "1", "1", "1", "0"]
+        ]
+      }
+    ],
     images: [
       {
         caption: "Boolean Expression Layout - Page 1",
@@ -1338,6 +1416,28 @@ FFIG 10_boolean.MSK`
     category: "Microwind Layout & Simulation",
     description: "CMOS layout and simulation of Half Adder circuit generating Sum (A XOR B) and Carry (A AND B) outputs in Microwind.",
     tags: ["Microwind", "Half Adder", "CMOS Layout", "Simulation", "MSK"],
+    circuits: [
+      {
+        caption: "CMOS XOR Gate (Sum Generator: S = A ⊕ B)",
+        src: "/images/vlsi/exp11_half_adder_xor_circuit.png"
+      },
+      {
+        caption: "CMOS AND Gate (Carry Generator: C = A · B)",
+        src: "/images/vlsi/exp11_half_adder_and_circuit.png"
+      }
+    ],
+    truthTables: [
+      {
+        title: "Half Adder Truth Table",
+        headers: ["A", "B", "Sum (S = A ⊕ B)", "Carry (C = A · B)"],
+        rows: [
+          ["0", "0", "0", "0"],
+          ["0", "1", "1", "0"],
+          ["1", "0", "1", "0"],
+          ["1", "1", "0", "1"]
+        ]
+      }
+    ],
     images: [
       {
         caption: "Half Adder CMOS Layout in Microwind",
@@ -1605,6 +1705,40 @@ FFIG half-adder.MSK`
     category: "Microwind Layout & Simulation",
     description: "Layout design and simulation of 2:1 Multiplexer using both Conventional CMOS logic and Transmission Gate (TG) configurations in Microwind.",
     tags: ["Microwind", "2:1 MUX", "Transmission Gate", "Layout", "Simulation"],
+    circuits: [
+      {
+        caption: "2:1 MUX Conventional CMOS Logic Circuit Diagram",
+        src: "/images/vlsi/exp12_mux_conventional_circuit.png"
+      },
+      {
+        caption: "2:1 MUX Transmission Gate (TG) Circuit Diagram",
+        src: "/images/vlsi/exp12_mux_tg_circuit.png"
+      }
+    ],
+    truthTables: [
+      {
+        title: "2:1 MUX Function Table",
+        headers: ["Select (S)", "Output (Y)", "Description"],
+        rows: [
+          ["0", "A", "Input A selected (passes to Y)"],
+          ["1", "B", "Input B selected (passes to Y)"]
+        ]
+      },
+      {
+        title: "2:1 MUX Full Truth Table",
+        headers: ["S", "A", "B", "Y"],
+        rows: [
+          ["0", "0", "0", "0"],
+          ["0", "0", "1", "0"],
+          ["0", "1", "0", "1"],
+          ["0", "1", "1", "1"],
+          ["1", "0", "0", "0"],
+          ["1", "0", "1", "1"],
+          ["1", "1", "0", "0"],
+          ["1", "1", "1", "1"]
+        ]
+      }
+    ],
     images: [
       {
         caption: "2:1 MUX Conventional Method Layout",
