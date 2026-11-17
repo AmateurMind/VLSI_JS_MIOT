@@ -501,7 +501,7 @@ void loop() {
     ]
   },
   {
-    id: "miot-exp7",
+    id: "miot-exp7-rpi",
     title: "Exp 7: Raspberry Pi GPIO LED Control",
     file: "led_raspberrypi.py",
     category: "Raspberry Pi & Python",
@@ -549,6 +549,154 @@ if __name__ == '__main__':
         if GPIO:
             GPIO.cleanup()
         print("\\nExiting cleanly")`
+      }
+    ]
+  },
+  {
+    id: "miot-exp7-bt",
+    title: "Exp 7: LED Blinking using Bluetooth Module",
+    file: "exp7_bluetooth_led.ino",
+    category: "Wireless & Bluetooth",
+    description: "Controls and toggles 4 LEDs via HC-05 Bluetooth Module using SoftwareSerial and Android mobile terminal app commands ('1' for ON, '0' for OFF).",
+    tags: ["Bluetooth", "SoftwareSerial", "LED", "Wireless", "HC-05"],
+    pdfDownload: "exp7_miot.pdf",
+    codeFiles: [
+      {
+        filename: "exp7_bluetooth_led.ino",
+        language: "cpp",
+        code: `/*
+ * Experiment No. 7: LED Blinking using Bluetooth Module
+ * Subject: Modernized IoT
+ */
+#include <SoftwareSerial.h>
+
+#define LED1 10
+#define LED2 11
+#define LED3 12
+#define LED4 13
+
+SoftwareSerial bt(6, 7); /* (Rx, Tx) */
+
+void setup() {
+  bt.begin(9600);  /* Define baud rate for software serial communication */
+  Serial.begin(9600); /* Define baud rate for serial communication */
+  Serial.println("Bluetooth ");
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+}
+
+void loop() {
+  char input;
+  if (bt.available()) /* If data is available on serial port */
+  {
+    input = bt.read();
+    Serial.print(input); /* Print character received on to the serial monitor */
+
+    if (input == '1') {
+      Serial.println(" Device ON");
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      digitalWrite(LED3, LOW);
+      digitalWrite(LED4, LOW);
+      delay(1000);
+    }
+    if (input == '0') {
+      Serial.println(" Device OFF");
+      digitalWrite(LED1, HIGH);
+      digitalWrite(LED2, HIGH);
+      digitalWrite(LED3, HIGH);
+      digitalWrite(LED4, HIGH);
+      delay(1000);
+    }
+  }
+}`
+      }
+    ],
+    images: [
+      {
+        caption: "Output on Mobile App (Bluetooth Terminal)",
+        src: "/images/miot/exp7_bluetooth_mobile_app.jpg"
+      },
+      {
+        caption: "Output on Serial Monitor",
+        src: "/images/miot/exp7_bluetooth_serial_monitor.jpg"
+      }
+    ]
+  },
+  {
+    id: "miot-exp8-zigbee",
+    title: "Exp 8: Data Transfer between Two Arduinos using ZigBee",
+    file: "exp8_zigbee.ino",
+    category: "Wireless & ZigBee",
+    description: "Aim: To send or receive data between Two Arduino boards using any wireless medium like ZigBee / XBee with analog sensor reading transmission.",
+    tags: ["ZigBee", "XBee", "Wireless", "SoftwareSerial", "AnalogRead"],
+    pdfDownload: "exp8_miot.pdf",
+    codeFiles: [
+      {
+        filename: "zbee_tx.ino",
+        language: "cpp",
+        code: `/*
+ * Experiment No. 8: Code for ZBee TX
+ * Aim: To send or receive data between Two Arduino boards using any wireless medium like ZigBee.
+ */
+#include <SoftwareSerial.h>
+
+#define rxPin 7
+#define txPin 8
+
+// Set up a new SoftwareSerial object
+SoftwareSerial mySerial = SoftwareSerial(rxPin, txPin);
+
+void setup() {
+  Serial.begin(9600);
+  // Set the baud rate for the SoftwareSerial object
+  mySerial.begin(9600);
+}
+
+void loop() {
+  unsigned int temp = analogRead(9);
+  temp = map(temp, 0, 1023, 0, 500);
+  // 10mV = 1'C
+
+  mySerial.println(temp);
+  delay(1000);
+}`
+      },
+      {
+        filename: "xbee_rx.ino",
+        language: "cpp",
+        code: `/*
+ * Experiment No. 8: Code for XBee RX
+ * Aim: To send or receive data between Two Arduino boards using any wireless medium like ZigBee.
+ */
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(6, 7); // RX, TX
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial) {
+  }
+
+  Serial.println("hello");
+  mySerial.begin(9600);
+  mySerial.println("Hello, world?");
+}
+
+void loop() {
+  if (mySerial.available())
+    Serial.write(mySerial.read());
+  if (Serial.available())
+    mySerial.write(Serial.read());
+}`
+      }
+    ],
+    images: [
+      {
+        caption: "Serial Monitor Output of RX",
+        src: "/images/miot/exp8_zigbee_serial_rx.jpg"
       }
     ]
   }

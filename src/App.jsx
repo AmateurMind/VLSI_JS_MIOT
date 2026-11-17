@@ -41,7 +41,9 @@ function LabView({ category }) {
       'half_adder.msk',
       'half_adder_nand.msk',
       '12_mux_conventional.msk',
-      '12_mux_transmission_gate.msk'
+      '12_mux_transmission_gate.msk',
+      'exp7_miot.pdf',
+      'exp8_miot.pdf'
     ];
     if (staticFiles.includes(filename)) {
       const a = document.createElement('a');
@@ -176,6 +178,27 @@ function LabView({ category }) {
                 <span style={{ fontSize: '12px', color: '#64748b' }}>
                   {currentExp.file}
                 </span>
+                {currentExp.pdfDownload && (
+                  <a
+                    href={`/downloads/${currentExp.pdfDownload}`}
+                    download={currentExp.pdfDownload}
+                    style={{
+                      marginLeft: 'auto',
+                      padding: '4px 10px',
+                      background: '#ef4444',
+                      color: '#ffffff',
+                      borderRadius: '5px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px'
+                    }}
+                  >
+                    <span>📄</span> Download Lab PDF
+                  </a>
+                )}
               </div>
               <h1 style={{ fontSize: '18px', fontWeight: 600, color: '#0f172a', margin: 0 }}>
                 {currentExp.title}
