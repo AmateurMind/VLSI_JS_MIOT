@@ -1620,11 +1620,7 @@ FFIG half-adder.MSK`
       },
       {
         caption: "2:1 MUX Transmission Gate Output Waveforms",
-        src: "/images/vlsi/exp12_mux2to1_p2_2.png"
-      },
-      {
-        caption: "2:1 MUX Detailed Comparison / Layout Overview",
-        src: "/images/vlsi/exp12_mux2to1_p2_3.png"
+        src: "/images/vlsi/exp12_mux2to1_tg_waveform.png"
       }
     ],
     codeFiles: []
