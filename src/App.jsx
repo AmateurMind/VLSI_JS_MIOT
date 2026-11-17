@@ -39,7 +39,8 @@ function LabView({ category }) {
       '10_boolean.msk',
       '11_half_adder.msk',
       'half_adder.msk',
-      '12_mux_conventional.msk'
+      '12_mux_conventional.msk',
+      '12_mux_transmission_gate.msk'
     ];
     if (staticFiles.includes(filename)) {
       const a = document.createElement('a');
