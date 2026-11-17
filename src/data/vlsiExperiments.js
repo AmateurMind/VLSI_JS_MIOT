@@ -1234,7 +1234,7 @@ FFIG 9(2)_NOR.MSK`
     aspectRatio: {
       fingers: "4 fingers",
       pmos: "1.2:0.1 (W:L)",
-      nmos: "2:1 (W:L)"
+      nmos: "0.2:0.1 (W:L)"
     },
     tags: ["Microwind", "AOI", "Boolean Expression", "4 fingers", "PMOS 1.2:0.1", "NMOS 2:1", "Layout"],
     images: [
@@ -1334,23 +1334,31 @@ FFIG 10_boolean.MSK`
   {
     id: "vlsi-exp11",
     title: "Exp 11: Half Adder using Microwind",
-    file: "half_adder.msk",
+    file: "11_half_adder.msk",
     category: "Microwind Layout & Simulation",
     description: "CMOS layout and simulation of Half Adder circuit generating Sum (A XOR B) and Carry (A AND B) outputs in Microwind.",
     tags: ["Microwind", "Half Adder", "CMOS Layout", "Simulation", "MSK"],
     images: [
       {
-        caption: "CMOS Half Adder Layout in Microwind",
-        src: "/images/vlsi/exp11_half_adder_p1_1.png"
+        caption: "Half Adder CMOS Layout in Microwind",
+        src: "/images/vlsi/exp11_half_adder_layout.png"
       },
       {
         caption: "Half Adder Sum & Carry Simulation Waveforms",
+        src: "/images/vlsi/exp11_half_adder_waveform.png"
+      },
+      {
+        caption: "Full Adder CMOS Layout in Microwind",
+        src: "/images/vlsi/exp11_half_adder_p1_1.png"
+      },
+      {
+        caption: "Full Adder Simulation Waveforms",
         src: "/images/vlsi/exp11_half_adder_p2_1.png"
       }
     ],
     codeFiles: [
       {
-        filename: "half_adder.msk",
+        filename: "11_half_adder.msk",
         language: "text",
         code: `VERSION 6/14/2023 7:08:34 AM
 FIG #half-adder.MSK

@@ -6,6 +6,14 @@ function LabView({ category }) {
   const experiments = EXPERIMENTS_DATA[category] || [];
   const [selectedId, setSelectedId] = useState(experiments[0]?.id || '');
   const [copiedKey, setCopiedKey] = useState(null);
+  const [expandedFiles, setExpandedFiles] = useState({});
+
+  const toggleExpand = (key) => {
+    setExpandedFiles((prev) => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
 
   // Reset selected item when category route changes
   useEffect(() => {
@@ -29,6 +37,7 @@ function LabView({ category }) {
       '9(1)_nand.msk',
       '9(2)_nor.msk',
       '10_boolean.msk',
+      '11_half_adder.msk',
       'half_adder.msk'
     ];
     if (staticFiles.includes(filename)) {
@@ -381,19 +390,75 @@ function LabView({ category }) {
                       </div>
 
                       {/* Code Content */}
-                      <div
-                        style={{
-                          padding: '16px',
-                          background: '#ffffff',
-                          overflowX: 'auto',
-                          maxHeight: isMultiColumn ? '70vh' : 'none',
-                          overflowY: isMultiColumn ? 'auto' : 'visible'
-                        }}
-                      >
-                        <pre style={{ margin: 0, color: '#1e293b' }}>
-                          <code>{file.code}</code>
-                        </pre>
-                      </div>
+                      {(() => {
+                        const isMsk = file.filename.toLowerCase().endsWith('.msk') || currentExp.category === 'Microwind Layout & Simulation';
+                        const isExpanded = !!expandedFiles[copyKey];
+
+                        return (
+                          <>
+                            <div style={{ position: 'relative' }}>
+                              <div
+                                style={{
+                                  padding: '16px',
+                                  background: '#ffffff',
+                                  overflowX: 'auto',
+                                  maxHeight: isMsk && !isExpanded ? '180px' : (isMultiColumn ? '70vh' : 'none'),
+                                  overflowY: isMsk && !isExpanded ? 'hidden' : (isMultiColumn ? 'auto' : 'visible')
+                                }}
+                              >
+                                <pre style={{ margin: 0, color: '#1e293b' }}>
+                                  <code>{file.code}</code>
+                                </pre>
+                              </div>
+
+                              {isMsk && !isExpanded && (
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: '70px',
+                                    background: 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.95))',
+                                    pointerEvents: 'none'
+                                  }}
+                                />
+                              )}
+                            </div>
+
+                            {isMsk && (
+                              <div
+                                style={{
+                                  textAlign: 'center',
+                                  padding: '8px 16px',
+                                  borderTop: '1px solid #e2e8f0',
+                                  background: '#f8fafc',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+                                }}
+                              >
+                                <button
+                                  onClick={() => toggleExpand(copyKey)}
+                                  style={{
+                                    background: 'transparent',
+                                    border: 'none',
+                                    color: '#2563eb',
+                                    fontWeight: 600,
+                                    fontSize: '12.5px',
+                                    cursor: 'pointer',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '6px'
+                                  }}
+                                >
+                                  {isExpanded ? '▲ View Less' : '▼ View More (Show full code)'}
+                                </button>
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
                   );
                 })}
