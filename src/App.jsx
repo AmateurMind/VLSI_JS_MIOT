@@ -39,6 +39,7 @@ function LabView({ category }) {
       '10_boolean.msk',
       '11_half_adder.msk',
       'half_adder.msk',
+      'half_adder_nand.msk',
       '12_mux_conventional.msk',
       '12_mux_transmission_gate.msk'
     ];
