@@ -7,6 +7,16 @@ export const vlsiExperiments = [
     category: "Xilinx Design Suite - Combinational",
     description: "VHDL code and testbench simulation for 8:1 Multiplexer with 8 data inputs and 3 select lines (includes Behavioral and Dataflow styles).",
     tags: ["VHDL", "8:1 MUX", "Xilinx", "Testbench", "Dataflow"],
+    images: [
+      {
+        caption: "8:1 MUX Simulation Waveforms",
+        src: "/images/vlsi/exp1_mux8to1_waveform.jpg"
+      },
+      {
+        caption: "8:1 MUX RTL Schematic",
+        src: "/images/vlsi/exp1_mux8to1_rtl.jpg"
+      }
+    ],
     codeFiles: [
       {
         filename: "mux8to1.vhd",
@@ -125,6 +135,16 @@ end Dataflow;`
     category: "Xilinx Design Suite - Combinational",
     description: "VHDL code for Half Adder in both Structural style (using XOR and AND gates) and Behavioral style, with simulation testbenches.",
     tags: ["VHDL", "Half Adder", "Structural", "Behavioral", "Component"],
+    images: [
+      {
+        caption: "Half Adder Simulation Waveforms",
+        src: "/images/vlsi/exp2_half_adder_waveform.jpg"
+      },
+      {
+        caption: "Half Adder RTL Schematic / Synthesis",
+        src: "/images/vlsi/exp2_half_adder_rtl.jpg"
+      }
+    ],
     codeFiles: [
       {
         filename: "half_adder_behavioral.vhd",
@@ -326,6 +346,16 @@ end behavior;`
     category: "Xilinx Design Suite - ALU",
     description: "4-bit Arithmetic Logic Unit performing 8 arithmetic and logic operations (+, -, +1, -1, AND, OR, XOR, NOT) using 3-bit select lines, with Behavioral and Dataflow styles.",
     tags: ["VHDL", "ALU", "Arithmetic", "Logic", "8 Operations"],
+    images: [
+      {
+        caption: "8-Operation ALU Simulation Waveforms",
+        src: "/images/vlsi/exp3_alu_waveform.jpg"
+      },
+      {
+        caption: "8-Operation ALU RTL Schematic",
+        src: "/images/vlsi/exp3_alu_rtl.jpg"
+      }
+    ],
     codeFiles: [
       {
         filename: "alu.vhd",
@@ -453,6 +483,16 @@ end Dataflow;`
     category: "Xilinx Design Suite - Sequential",
     description: "4-bit Universal Shift Register supporting Hold (00), Shift Right (01), Shift Left (10), and Parallel Load (11) modes with synchronous clock and active-high reset.",
     tags: ["VHDL", "Shift Register", "Parallel Load", "Sequential", "USR"],
+    images: [
+      {
+        caption: "Universal Shift Register Simulation Waveforms",
+        src: "/images/vlsi/exp4_usr_waveform.jpg"
+      },
+      {
+        caption: "Universal Shift Register RTL Schematic",
+        src: "/images/vlsi/exp4_usr_rtl.jpg"
+      }
+    ],
     codeFiles: [
       {
         filename: "Universal_Shift_Register.vhd",
@@ -597,12 +637,12 @@ END behavior;`
     tags: ["VHDL", "MOD-N", "Counter", "Waveform", "RTL Schematic", "MOD-6"],
     images: [
       {
-        caption: "MOD-N Counter Simulation Waveform (Page 5)",
-        src: "/images/vlsi/exp5_modn_waveform_1.jpg"
+        caption: "MOD-6 Counter Simulation Waveforms",
+        src: "/images/vlsi/exp5_modn_waveform.jpg"
       },
       {
-        caption: "MOD-N Counter RTL Schematic (Page 5)",
-        src: "/images/vlsi/exp5_modn_waveform_2.jpg"
+        caption: "MOD-6 Counter RTL Schematic",
+        src: "/images/vlsi/exp5_modn_rtl.jpg"
       }
     ],
     codeFiles: [
@@ -693,6 +733,16 @@ END behavioral;`
     category: "Xilinx Design Suite - Memory & Buffers",
     description: "Synchronous FIFO buffer with generic data width and depth (8x8), circular buffer with modulo indexing, count tracking, empty/full flags, and simulation testbench.",
     tags: ["VHDL", "FIFO", "Memory Buffer", "Xilinx", "Testbench"],
+    images: [
+      {
+        caption: "FIFO Buffer Simulation Waveforms",
+        src: "/images/vlsi/exp6_fifo_waveform.jpg"
+      },
+      {
+        caption: "FIFO Buffer RTL Schematic",
+        src: "/images/vlsi/exp6_fifo_rtl.jpg"
+      }
+    ],
     codeFiles: [
       {
         filename: "std_fifo.vhd",
@@ -870,6 +920,16 @@ END behavior;`
     category: "Xilinx Design Suite - Interfacing",
     description: "4x4 Matrix Keypad scanner with clock divider debouncing, active-low row driving, column read, and 4-bit key code decoder.",
     tags: ["VHDL", "Keypad", "Matrix", "Scanner", "FPGA"],
+    images: [
+      {
+        caption: "Keypad Interfacing State & Timing Simulation Waveforms",
+        src: "/images/vlsi/exp7_keypad_waveform.jpg"
+      },
+      {
+        caption: "Keypad Connections & Block Diagram (Fig. 2)",
+        src: "/images/vlsi/exp7_keypad_diagram.jpg"
+      }
+    ],
     codeFiles: [
       {
         filename: "keypad_scanner.vhd",
