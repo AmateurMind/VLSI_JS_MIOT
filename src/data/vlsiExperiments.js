@@ -1484,6 +1484,10 @@ FFIG 10_boolean.MSK`
       {
         caption: "CMOS AND Gate (Carry Generator: C = A · B)",
         src: "/images/vlsi/exp11_half_adder_and_circuit.png"
+      },
+      {
+        caption: "Half Adder with only NAND Gates - Circuit Diagram",
+        src: "/images/vlsi/exp11_half_adder_only_nand_circuit.png"
       }
     ],
     truthTables: [
@@ -1522,6 +1526,10 @@ FFIG 10_boolean.MSK`
       {
         caption: "Half Adder with only NAND Gates - Simulation Waveforms",
         src: "/images/vlsi/exp11_half_adder_nand_waveform.jpg"
+      },
+      {
+        caption: "Half Adder with only NAND Gates - Logic Circuit Schematic",
+        src: "/images/vlsi/exp11_half_adder_only_nand_circuit.png"
       }
     ],
     codeFiles: [
