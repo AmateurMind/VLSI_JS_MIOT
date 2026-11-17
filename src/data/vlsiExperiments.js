@@ -637,12 +637,12 @@ END behavior;`
     tags: ["VHDL", "MOD-N", "Counter", "Waveform", "RTL Schematic", "MOD-6"],
     images: [
       {
-        caption: "MOD-6 Counter Simulation Waveforms",
-        src: "/images/vlsi/exp5_modn_waveform.jpg"
+        caption: "MOD-N Counter Simulation Waveforms (from 3,4,5.pdf)",
+        src: "/images/vlsi/exp5_modn_waveform_1.jpg"
       },
       {
-        caption: "MOD-6 Counter RTL Schematic",
-        src: "/images/vlsi/exp5_modn_rtl.jpg"
+        caption: "MOD-N Counter Detailed Waveforms (from 3,4,5.pdf)",
+        src: "/images/vlsi/exp5_modn_waveform_2.jpg"
       }
     ],
     codeFiles: [
@@ -922,12 +922,12 @@ END behavior;`
     tags: ["VHDL", "Keypad", "Matrix", "Scanner", "FPGA"],
     images: [
       {
-        caption: "Keypad Interfacing State & Timing Simulation Waveforms",
+        caption: "Keypad Interfacing Simulation Waveforms (from Page 6)",
         src: "/images/vlsi/exp7_keypad_waveform.jpg"
       },
       {
-        caption: "Keypad Connections & Block Diagram (Fig. 2)",
-        src: "/images/vlsi/exp7_keypad_diagram.jpg"
+        caption: "Keypad Interfacing RTL Schematic (from Page 6)",
+        src: "/images/vlsi/exp7_keypad_rtl.jpg"
       }
     ],
     codeFiles: [
