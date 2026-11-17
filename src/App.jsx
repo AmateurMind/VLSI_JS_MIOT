@@ -38,7 +38,8 @@ function LabView({ category }) {
       '9(2)_nor.msk',
       '10_boolean.msk',
       '11_half_adder.msk',
-      'half_adder.msk'
+      'half_adder.msk',
+      '12_mux_conventional.msk'
     ];
     if (staticFiles.includes(filename)) {
       const a = document.createElement('a');
